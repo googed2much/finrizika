@@ -1,7 +1,7 @@
 function Home() {
     return (
     <>
-        <h1>Laba diena, pone</h1>
+        <h1>Home/Dashboard</h1>
     </>
     )
 }
