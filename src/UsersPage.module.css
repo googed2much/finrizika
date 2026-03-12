@@ -1,0 +1,28 @@
+.title {
+    margin-bottom: 10px;
+}
+
+.user_div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.user_table {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+    background-color: rgb(243, 240, 240);
+}
+
+.user_table thead {
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+.user_table th,
+.user_table td{
+    padding-left: 30px;
+    padding-right: 30px;
+}

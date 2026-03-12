@@ -147,7 +147,7 @@ function PhysicalProfiles() {
 
             <table className={styles.company_table}>
                 <thead>
-                    <tr className={styles.company_table_thead}>
+                    <tr key={-1} className={styles.company_table_thead}>
                         <th>Kodas</th>
                         <th>Pavadinimas</th>
                         <th>Telefono numeris</th>
