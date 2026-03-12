@@ -17,6 +17,7 @@ function Home() {
 
             <div className={styles.dashboard_content_div}>
                 <Routes>
+                    <Route path="" element={<h1 className={styles.title}>Sveiki atvykę</h1>} />
                     <Route path="juridical" element={<JuridicalProfiles />} />
                     <Route path="physical" element={<PhysicalProfiles />} />
                     <Route path="profile" element={<ProfilePage />} />
