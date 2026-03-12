@@ -1,27 +1,38 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./ProfilePage.module.css"
 
 function ProfilePage() {
-    const [workerId, _] = useState<string>("1")
-    const [workerFullname, setWorkerFullname] = useState<string>("test name")
-    const [workerEmail, setWorkerEmail] = useState<string>("test email");
-    const [workerTelephone, setWorkerTelephone] = useState<string>("test telephone");
-    const [workerPassword, setWorkerPassword] = useState<string>("testpassword");
-
-    async function unhidePassword(){
-        const passwordText = document.getElementById("worker_password")
-        const type = passwordText?.getAttribute("type") === "password" ? "text" : "password"
-        passwordText?.setAttribute("type", type)
-
-        const passwordButton = document.getElementById("password_button")
-        const type2 = passwordButton?.textContent === "Rodyti" ? "Slėpti" : "Rodyti"
-        if (passwordButton) {
-            passwordButton.textContent = type2;
-        }
+    interface CurrentUser{
+        id: string;
+        email: string;
+        telephone: string;
+        password: string | undefined;
+        fullname: string;
+        personId: string; 
     }
 
+    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = e.target
+        setCurrentUser(prev => prev ? { ...prev, [name]: value } : prev)
+    }
+
+    useEffect(() => {
+        fetch(`/api/users/get-current`, { credentials: "include" })
+            .then(res => res.json())
+            .then(data => setCurrentUser(data))
+    }, [])
+
     async function updateInformation(){
-        console.log("saved")
+        if (!currentUser) return
+
+        await fetch(`/api/users/update`, {
+            method: "PUT",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(currentUser)
+        })
     }
 
     return (
@@ -30,30 +41,35 @@ function ProfilePage() {
 
             <div className={styles.profile_div}>
                 <div>
-                    <label htmlFor="worker_id">ID:</label>
-                    <input id="worker_id" name="worker_id" type="text" value={workerId} disabled></input> 
+                    <label htmlFor="id">ID:</label>
+                    <input id="id" name="id" type="text" value={currentUser?.id ?? ""} disabled></input> 
                 </div>
 
                 <div>
-                    <label htmlFor="worker_email">Pilnas vardas:</label>
-                    <input id="worker_email" name="worker_email" type="text" value={workerEmail} onChange={ e => {setWorkerEmail(e.target.value)} }></input> 
+                    <label htmlFor="email">Elektroninis paštas:</label>
+                    <input id="email" name="email" type="text" value={currentUser?.email ?? ""} onChange={handleChange}></input> 
                 </div>
 
                 <div>
-                    <label htmlFor="worker_fullname">Elektroninis paštas:</label>
-                    <input id="worker_fullname" name="worker_fullname" type="text" value={workerFullname} onChange={ e => {setWorkerFullname(e.target.value)} }></input> 
+                    <label htmlFor="password">Naujas slaptažodis:</label>
+                    <input id="password" name="password" type="text" value={currentUser?.password ?? ""} onChange={handleChange}></input> 
                 </div>
 
                 <div>
-                    <label htmlFor="worker_telephone">Telefono numeris:</label>
-                    <input id="worker_telephone" name="worker_telephone" type="text" value={workerTelephone} onChange={ e => {setWorkerTelephone(e.target.value)} }></input> 
+                    <label htmlFor="telephone">Telefono numeris:</label>
+                    <input id="telephone" name="telephone" type="text" value={currentUser?.telephone ?? ""} onChange={handleChange}></input> 
                 </div>
 
                 <div>
-                    <label htmlFor="worker_password">Slaptažodis:</label>
-                    <input id="worker_password" name="worker_password" type="password" value={workerPassword} onChange={ e => {setWorkerPassword(e.target.value)} }></input>
-                    <button id="password_button" onClick={ _ => { unhidePassword() } }>Rodyti</button> 
+                    <label htmlFor="fullname">Pilnas vardas:</label>
+                    <input id="fullname" name="fullname" type="text" value={currentUser?.fullname?? ""} onChange={handleChange}></input> 
                 </div>
+
+                <div>
+                    <label htmlFor="fullname">Asmens kodas</label>
+                    <input id="personId" name="personId" type="text" value={currentUser?.personId ?? ""} onChange={handleChange}></input>                    
+                </div>
+
 
                 <a className={styles.button_save} onClick = { _ => { updateInformation() } }>Išsaugoti</a>
             </div>
