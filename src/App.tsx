@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home.tsx';
 import Login from './Login.tsx';
+import CompanyEvaluation from './CompanyEvaluation.tsx';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
           <Routes>
             <Route path="/dashboard" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/CompanyEvaluation" element={<CompanyEvaluation />} />
           </Routes>
         </BrowserRouter>
     </>
