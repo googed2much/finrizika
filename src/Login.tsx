@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from './Login.module.css'
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -8,7 +9,7 @@ function Login() {
         console.log("login function with", email, " ", password)
 
         //if (response.ok) {
-            window.location.href = "/"
+            window.location.href = "/dashboard"
         //} else {
             //alert("Wrong email or password")
         //}
@@ -16,14 +17,23 @@ function Login() {
 
     return (
     <>
-        <h1>Finrizikos svetainė</h1>
-        <label htmlFor="email">Elektroninis paštas</label>
-        <input id="email" name="email" type="text" value={email} onChange={ e => {setEmail(e.target.value)} }></input>
+        <div className={styles.login_div}>
+            <div className={styles.box_div}>
+                <h1 className={styles.title}>Finrizikos svetainė</h1>
+                
+                <div className={styles.login_input_div}>
+                    <label htmlFor="email">Elektroninis paštas</label>
+                    <input id="email" name="email" type="text" value={email} onChange={ e => {setEmail(e.target.value)} }></input>
+                </div>
+            
+                <div className={styles.login_input_div}>
+                    <label htmlFor="password">Slaptažodis</label>
+                    <input id="password" name="password" type="password" value={password} onChange={ e => {setPassword(e.target.value)} }></input>
+                </div>
 
-        <label htmlFor="password">Slaptažodis</label>
-        <input id="password" name="password" type="password" value={password} onChange={ e => {setPassword(e.target.value)} }></input>
-
-        <button onClick={ login }>Prisijungti</button>
+                <button onClick={ login } className={styles.button}>Prisijungti</button>
+            </div>
+        </div>
     </>
     )
 }
