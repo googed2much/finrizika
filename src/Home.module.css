@@ -19,4 +19,19 @@
 
 .dashboard_content_div {
     background-color: rgb(199, 199, 236);
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+
+    font-size: 20px;
+}
+
+.link:hover {
+    color: white;
+    padding-right: 10px;
+    font-size: 25px;
 }
