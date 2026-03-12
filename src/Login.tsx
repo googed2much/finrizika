@@ -6,13 +6,13 @@ function Login() {
     const [password, setPassword] = useState("")
 
     async function login(){
-        console.log("login function with", email, " ", password)
+        const response = await fetch(`/api/users/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({email: email, password: password})})
 
-        //if (response.ok) {
+        if (response.ok) {
             window.location.href = "/dashboard"
-        //} else {
-            //alert("Wrong email or password")
-        //}
+        } else {
+            alert("Wrong email or password")
+        }
     }
 
     return (

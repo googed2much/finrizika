@@ -52,10 +52,10 @@ function ProfilePage() {
                 <div>
                     <label htmlFor="worker_password">Slaptažodis:</label>
                     <input id="worker_password" name="worker_password" type="password" value={workerPassword} onChange={ e => {setWorkerPassword(e.target.value)} }></input>
-                    <button id="password_button" onClick={ e => { unhidePassword() } }>Rodyti</button> 
+                    <button id="password_button" onClick={ _ => { unhidePassword() } }>Rodyti</button> 
                 </div>
 
-                <a className={styles.button_save} onClick = { e => { updateInformation() } }>Išsaugoti</a>
+                <a className={styles.button_save} onClick = { _ => { updateInformation() } }>Išsaugoti</a>
             </div>
         </>
     )
