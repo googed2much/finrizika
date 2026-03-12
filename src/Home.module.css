@@ -1,0 +1,22 @@
+.dashboard_grid {
+    display: grid;
+    grid-template-columns: 15vw auto;
+
+    height: 100vh;
+}
+
+.dashboard_selection_div {
+    background-color: rgb(179, 179, 240);
+    border-right: 4px black solid;
+    padding-top: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.dashboard_content_div {
+    background-color: rgb(199, 199, 236);
+}
