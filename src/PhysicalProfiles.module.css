@@ -1,0 +1,43 @@
+.title {
+    margin-bottom: 10px;
+}
+
+.button_div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    border: 2px black solid;
+    background-color: white;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: white;
+    border: 2px white solid;
+    background-color: black;
+}
+
+.company_table {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+    background-color: rgb(243, 240, 240);
+}
+
+.company_table thead {
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+.company_table th,
+.company_table td{
+    padding-left: 30px;
+    padding-right: 30px;
+}
