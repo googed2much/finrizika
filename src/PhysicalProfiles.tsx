@@ -5,9 +5,15 @@ import styles from "./PhysicalProfiles.module.css"
 
 function PhysicalProfiles() {
     interface Person {
-        id: string;
+        id: number;
         name: string;
         telephone: string;
+        wage: number;
+        debt: number;
+        networth: number;
+        expenses: number;
+        age: number;
+        score: number;
     }
 
     const [personID, setPersonID] = useState<string>("");
@@ -20,9 +26,12 @@ function PhysicalProfiles() {
     const [expenses, setExpenses] = useState<number>(0);
     const [age,setAge] = useState<number>(0);
     const [score, setScore] = useState<number>(0);
+    const [id, setId] = useState<number>(0);
+    const [name,setName] = useState<string>("vard");
+    const [telephone,setTelephone]=useState<string>("0");
     async function calculateRisk() {
         
-        const response = await fetch("http://localhost:8080/api/physicalCalc", {
+        const response = await fetch("http://localhost:8080/api/physical/calculate", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -32,17 +41,21 @@ function PhysicalProfiles() {
                 debt: debt,
                 networth: networth,
                 expenses: expenses,
-                age: age
+                age: age,
+                id: id,
+                name: name,
+                telephone: telephone
             })
         })
     
         if (response.ok) {
             const data = await response.json()
             setScore(data.score)
+            console.log(data.score);
         } else {
             alert("Nepavyko fizinio asmens duomenų apdorojimas")
         }
-        console.log(score);
+        
       }
     return (
         <>
@@ -131,8 +144,55 @@ function PhysicalProfiles() {
                 }
               }}
             />
+
+            
+          </div>
+
+
+          <div>
+            <label>nr-id</label>
+            <input
+              id="nd"
+              name="nd"
+              type="text"
+              value={id}
+              onChange={(e) => {
+                const value = e.target.value;
+    
+                if (/^\d*\.?\d*$/.test(value)) {
+                  setId(Number(value));
+                }
+              }}
+            />
+          </div>
+          <div>
+            <label>vardas_pavardė</label>
+            <input
+              id="nd"
+              name="nd"
+              type="text"
+              value={name}
+              onChange={(e) => {
+                const value = e.target.value;
+                  setName(String(value));
+              }}
+            />
           </div>
     
+          <div>
+            <label>Telefono Nr</label>
+            <input
+              id="nd"
+              name="nd"
+              type="text"
+              value={telephone}
+              onChange={(e) => {
+                const value = e.target.value;
+                 setTelephone(String(value));
+              }}
+            />
+          </div>
+
           <button onClick={calculateRisk}>Įvertinti asmenį</button>
     
           <div>Suskaičiuotas balas: {score}</div>
@@ -151,6 +211,7 @@ function PhysicalProfiles() {
                         <th>Kodas</th>
                         <th>Pavadinimas</th>
                         <th>Telefono numeris</th>
+                        <th>Reitingas</th>
                     </tr>
                 </thead>
 
@@ -161,6 +222,7 @@ function PhysicalProfiles() {
                         <td>{person.id}</td>
                         <td>{person.name}</td>
                         <td>{person.telephone}</td>
+                        <td>{person.score}</td>
                     </tr>
                     ))
                     }
@@ -181,8 +243,17 @@ function PhysicalProfiles() {
   
     
     async function searchProfile() {
-        const data = [{id:personID, name:"test name", telephone:"test telephone"}]
-        setPeople(data)
+        //const data = [{id:personID, name:"test name", telephone:"test telephone"}]
+        const response = await fetch(
+            `http://localhost:8080/api/physical/${personID}`
+        );
+        
+        if (response.ok) {
+            const data = await response.json();
+            setPeople([data]);
+        } else {
+            alert("Nepavyko rasti fizinio asmens");
+        }
         return;
     }
 
