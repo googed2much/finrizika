@@ -31,7 +31,7 @@ function PhysicalProfiles() {
     const [telephone,setTelephone]=useState<string>("0");
     async function calculateRisk() {
         
-        const response = await fetch("http://localhost:8080/api/physical/calculate", {
+        const response = await fetch(`${import.meta.env.VITE_API_LINK}/physical/calculate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -245,7 +245,7 @@ function PhysicalProfiles() {
     async function searchProfile() {
         //const data = [{id:personID, name:"test name", telephone:"test telephone"}]
         const response = await fetch(
-            `http://localhost:8080/api/physical/${personID}`
+            `${import.meta.env.VITE_API_LINK}/physical/${personID}`
         );
         
         if (response.ok) {
