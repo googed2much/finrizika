@@ -29,6 +29,9 @@ function PhysicalProfiles() {
     const [id, setId] = useState<number>(0);
     const [name,setName] = useState<string>("vard");
     const [telephone,setTelephone]=useState<string>("0");
+    
+    const [saveStatus,setSaveStatus]=useState<string>("Neišsaugotas");
+
     async function calculateRisk() {
         
         const response = await fetch(`${import.meta.env.VITE_API_LINK}/physical/calculate`, {
@@ -193,16 +196,18 @@ function PhysicalProfiles() {
             />
           </div>
 
-          <button onClick={calculateRisk}>Įvertinti asmenį</button>
-    
-          <div>Suskaičiuotas balas: {score}</div>
+          <div className={styles.button_div}>
+            <button onClick={calculateRisk}>Įvertinti asmenį</button>
+            <button onClick={saveProfile}>Išsaugoti asmenį</button>
+          </div>
+          <div>Suskaičiuotas balas: {score}  |  Profilis {saveStatus}</div>
 
           <h1 className={styles.title}>Fizinių asmenų paieška</h1>
 
             <div className={styles.button_div}>
                 <input type="number" min={1} step={1} placeholder="Identifikacijos kodas" value={personID} onChange={e => setPersonID(e.target.value)}></input>
                 <a className={styles.link} onClick={ searchProfile }>Paieška</a>
-                <Link to="/create-physical" className={styles.link}>Sukurti naują profilį</Link>
+                {/*<Link to="/create-physical" className={styles.link}>Sukurti naują profilį</Link>*/}
             </div>
 
             <table className={styles.company_table}>
@@ -253,6 +258,18 @@ function PhysicalProfiles() {
             setPeople([data]);
         } else {
             alert("Nepavyko rasti fizinio asmens");
+        }
+        return;
+    }
+    async function saveProfile(){
+        const response = await fetch(
+            `${import.meta.env.VITE_API_LINK}/physical/save/${id}`,{method: "POST"}
+        );
+        if(response.ok){
+            setSaveStatus("Išsaugotas");
+        }
+        else {
+            alert("Nepavyko išsaugoti asmens");
         }
         return;
     }
