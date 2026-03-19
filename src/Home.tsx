@@ -5,6 +5,7 @@ import PhysicalProfiles from "./PhysicalProfiles"
 import ProfilePage from "./ProfilePage"
 import UsersPage from "./UsersPage"
 import CreditRatingCalculator from "./CreditRating"
+import Portfolio from "./Portfolio"
 
 function Home() {
 
@@ -28,6 +29,7 @@ function Home() {
                         <Link to="/dashboard/calc3">Skaičiuoklė3</Link>
                     </div>
                 </div>
+                <Link to="/dashboard/portfolio" className={styles.link}>Portfelis &gt;&gt;</Link>
                 <Link to="/dashboard/profile" className={styles.link}>Profilis &gt;&gt;</Link>
                 <Link to="/dashboard/users" className={styles.link}>Vartotojai &gt;&gt;</Link>
                 <a className={styles.link} onClick={ _ => logout() }>Atsijungti</a>
@@ -41,6 +43,7 @@ function Home() {
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="users" element={<UsersPage />} />
                     <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
+                    <Route path="portfolio" element={<Portfolio />} />
                 </Routes>
             </div>
         </div>
