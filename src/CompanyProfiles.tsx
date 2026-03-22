@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "./CompanyProfiles.module.css";
 import { NumericInput } from "./Components/NumericInput";
 
 function JuridicalProfiles() {
   interface Company {
     id: string;
+    companyCode: string;
     name: string;
-    telephone: string;
+    phoneNumber: string;
+    score: number;
   }
 
-  const [companyID, setCompanyID] = useState<string>("");
+  const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
   const [companies, setCompanies] = useState<Company[]>([]);
   const [score, setScore] = useState<number>();
 
@@ -120,11 +121,41 @@ function JuridicalProfiles() {
   }
 
   async function searchProfile() {
-    const data = [
-      { id: companyID, name: "test name", telephone: "test telephone" },
-    ];
-    setCompanies(data);
-    return;
+    if (searchCompanyCode === "") {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_LINK}/company/data`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error("Failed to get all");
+        return;
+      }
+      const data: Company[] = await response.json();
+      setCompanies(data);
+    } else {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_LINK}/company/data/${searchCompanyCode}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error("Failed to get needed");
+        return;
+      }
+      const data: Company[] = await response.json();
+      setCompanies(data);
+    }
   }
 
   return (
@@ -249,7 +280,7 @@ function JuridicalProfiles() {
 
       <button onClick={submitData}>Pateikti</button>
 
-      <div>Rizikos balas: {score}</div>
+      <div>Rizikos įvertinimas: {score}</div>
 
       <h1 className={styles.title}>Juridinių asmenų paieška</h1>
 
@@ -258,24 +289,23 @@ function JuridicalProfiles() {
           type="number"
           min={1}
           step={1}
-          placeholder="Identifikacijos kodas"
-          value={companyID}
-          onChange={(e) => setCompanyID(e.target.value)}
+          placeholder="Įmonės kodas"
+          value={searchCompanyCode}
+          onChange={(e) => setSearchCompanyCode(e.target.value)}
         ></input>
         <a className={styles.link} onClick={searchProfile}>
           Paieška
         </a>
-        <Link to="/create-juridical" className={styles.link}>
-          Sukurti naują profilį
-        </Link>
       </div>
 
       <table className={styles.company_table}>
         <thead>
           <tr className={styles.company_table_thead}>
-            <th>Kodas</th>
+            <th>ID</th>
+            <th>Įmonės kodas</th>
             <th>Pavadinimas</th>
             <th>Telefono numeris</th>
+            <th>Įvertinimas</th>
           </tr>
         </thead>
 
@@ -284,8 +314,10 @@ function JuridicalProfiles() {
             {companies.map((company) => (
               <tr key={company.id}>
                 <td>{company.id}</td>
+                <td>{company.companyCode}</td>
                 <td>{company.name}</td>
-                <td>{company.telephone}</td>
+                <td>{company.phoneNumber}</td>
+                <td>{company.score}</td>
               </tr>
             ))}
           </tbody>
