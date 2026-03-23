@@ -39,7 +39,7 @@ function PhysicalCreation(){
     };
 
     async function saveProfile(){
-        const response = await fetch(`${import.meta.env.VITE_API_LINK}/physical/save`, {method: "POST", body: personProfile});
+        const response = await fetch(`${import.meta.env.VITE_API_LINK}/physical/save`, {method: "POST"});
         if(response.ok){
             alert("Išsaugotas");
         }
