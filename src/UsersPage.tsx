@@ -8,7 +8,7 @@ function UsersPage() {
     password: string;
     telephone: string;
     fullname: string;
-    person_id: string;
+    personId: string;
     role: string;
   }
 
@@ -43,18 +43,19 @@ function UsersPage() {
           </tr>
         </thead>
 
-        <tbody>
-          {users.length > 0 &&
-            users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.email}</td>
-                <td>{user.telephone}</td>
-                <td>{user.fullname}</td>
-                <td>{user.person_id}</td>
-                <td>{user.role}</td>
-              </tr>
-            ))}
+                <tbody>
+                {users.length > 0 && users.map(user => (
+                    <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.email}</td>
+                        <td>{user.telephone}</td>
+                        <td>{user.fullname}</td>
+                        <td>{user.personId}</td>
+                        <td>{user.role}</td>
+                    </tr>
+                )
+                )
+                }
 
           {users.length == 0 && (
             <tr key={0}>
