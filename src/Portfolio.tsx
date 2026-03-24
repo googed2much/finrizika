@@ -6,28 +6,31 @@ function Portfolio() {
     const [viewType,setViewType] = useState<"physical"|"juridical">("physical");
     return (
         <>
-            <h1 className={styles.title}>Fizinių bei juridinių asmenų sąrašai</h1>
-            <div style={{ marginBottom: "20px" }}>
+            <div>
+            <h1 className={styles.title}>Portfelis</h1>
+            <p className={styles.title2}>Saugomų asmenų duomenys</p>
+            </div>
+            <div className={styles.contentBlock}></div>
+            <div className={styles.pickbuttons}>
                 <button
+                    className={viewType === "physical" ? styles.active : ""}
                     onClick={() => setViewType("physical")}
-                    style={{
-                        backgroundColor: viewType === "physical" ? "#aeaef2" : "#ccc"
-                    }}
                 >
-                    Physical Individuals
+                    Fiziniai Asmenys
                 </button>
 
                 <button
+                    className={viewType === "juridical" ? styles.active : ""}
                     onClick={() => setViewType("juridical")}
-                    style={{
-                        backgroundColor: viewType === "juridical" ? "#aeaef2" : "#ccc"
-                    }}
                 >
-                    Juridical Individuals
+                    Juridiniai Asmenys
                 </button>
-                {viewType==="physical" && <PhysicalIndividual/>}
-                {viewType==="juridical" && <JuridicalIndividual/>}
             </div>
+
+        <div className="">
+            {viewType === "physical" && <PhysicalIndividual />}
+            {viewType === "juridical" && <JuridicalIndividual />}
+        </div>
           
         </>
     )
@@ -56,28 +59,32 @@ function PhysicalIndividual(){
         }
         fetchData();
     },[]);
-    async function searchProfile() {
-        const response = await fetch(`/api/physical/${personID}`);
-        if (response.ok) {
-            const data = await response.json();
-            setPeople([data]);
-        } else {
-            alert("Nepavyko rasti fizinio asmens");
-        }
-        return;
-    }
+    // async function searchProfile() {
+    //     const response = await fetch(`/api/physical/${personID}`);
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         setPeople([data]);
+    //     } else {
+    //         alert("Nepavyko rasti fizinio asmens");
+    //     }
+    //     return;
+    // }
+    const filteredIndividuals = individuals.filter(individual => {
+        if (personID === "") return true;
+        return individual.id.toString().includes(personID);
+    });
     return (
         <>
     
-    <h2 className={styles.title}>Fizinių asmenų paieška</h2>
+    {/* <h2 className={styles.title}>Fizinių asmenų paieška</h2> */}
 
             <div className={styles.button_div}>
-                <input type="number" min={1} step={1} placeholder="Identifikacijos kodas" value={personID} onChange={e => setPersonID(e.target.value)}></input>
-                <a className={styles.link} onClick={ searchProfile }>Paieška</a>
+                <input type="number" min={1} step={1} placeholder="Paieška.. įveskite kodą" value={personID} onChange={e => setPersonID(e.target.value)}></input>
+                {/* <a className={styles.link} onClick={ searchProfile }>Paieška</a> */}
                 <Link to="/create-physical" className={styles.link}>Sukurti naują profilį</Link>
             </div>
             
-            <table className={styles.company_table}>
+            {/* <table className={styles.company_table}>
                 <thead>
                     <tr key={-1} className={styles.company_table_thead}>
                         <th>Kodas</th>
@@ -109,8 +116,8 @@ function PhysicalIndividual(){
                     </tr>
                 </tbody>
                 )}
-            </table>
-    <h2 className={styles.title}>Fizinių asmenų sąrašas</h2>
+            </table> */}
+    <h3 className={styles.title}>Fizinių asmenų sąrašas</h3>
     <table className={styles.user_table}>
         <thead>
             <tr>
@@ -120,9 +127,8 @@ function PhysicalIndividual(){
                 <th>Elektroninis paštas</th>
             </tr>
         </thead>
-
         <tbody>
-        {individuals.length > 0 && individuals.map(individual => (
+        {filteredIndividuals.length > 0 && filteredIndividuals.map(individual => (
             <tr key={individual.id}>
                 <td>{individual.id}</td>
                 <td>{individual.fullname}</td>
