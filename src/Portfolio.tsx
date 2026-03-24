@@ -50,7 +50,7 @@ function PhysicalIndividual(){
 
     useEffect(() =>{
         const fetchData = async () =>{
-            const response = await fetch(`/api/physical/mylist`)
+            const response = await fetch(`/api/physical/list`)
             if (response.ok) {
                 const data = await response.json();
                 setIndividuals(data);
