@@ -6,7 +6,7 @@ function Login() {
     const [password, setPassword] = useState("")
 
     async function login(){
-        const response = await fetch(`${import.meta.env.VITE_API_LINK}/users/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({email: email, password: password})})
+        const response = await fetch(`/api/users/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({email: email, password: password})})
 
         if (response.ok) {
             window.location.href = "/dashboard"

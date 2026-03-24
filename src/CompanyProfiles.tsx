@@ -101,7 +101,7 @@ function JuridicalProfiles() {
     };
 
     const response = await fetch(
-      `${import.meta.env.VITE_API_LINK}/company/data/create`,
+      `/api/company/data/create`,
       {
         method: "POST",
         headers: {
@@ -123,7 +123,7 @@ function JuridicalProfiles() {
   async function searchProfile() {
     if (searchCompanyCode === "") {
       const response = await fetch(
-        `${import.meta.env.VITE_API_LINK}/company/data`,
+        `/api/company/data`,
         {
           method: "GET",
           headers: {
@@ -140,7 +140,7 @@ function JuridicalProfiles() {
       setCompanies(data);
     } else {
       const response = await fetch(
-        `${import.meta.env.VITE_API_LINK}/company/data/${searchCompanyCode}`,
+        `/api/company/data/${searchCompanyCode}`,
         {
           method: "GET",
           headers: {

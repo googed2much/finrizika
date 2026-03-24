@@ -1,7 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
 import styles from "./Home.module.css";
-import CompanyProfiles from "./CompanyProfiles";
-import PhysicalProfiles from "./PhysicalProfiles";
 import ProfilePage from "./ProfilePage";
 import UsersPage from "./UsersPage";
 import CreditRatingCalculator from "./CreditRating";
@@ -18,12 +16,7 @@ function Home() {
       <div className={styles.dashboard_grid}>
         <div className={styles.dashboard_selection_div}>
           <h1>Finrizika</h1>
-          <Link to="/dashboard/company" className={styles.link}>
-            Juridiniai asmenys &gt;&gt;
-          </Link>
-          <Link to="/dashboard/physical" className={styles.link}>
-            Fiziniai asmenys &gt;&gt;
-          </Link>
+          <Link to="/dashboard/portfolio" className={styles.link}>Portfelis &gt;&gt;</Link>
           <div className={styles.dropdown}>
             <span className={styles.link2}>Skaičiuoklės &gt;&gt;</span>
             <div className={styles.dropdown_content}>
@@ -34,9 +27,6 @@ function Home() {
               <Link to="/dashboard/calc3">Skaičiuoklė3</Link>
             </div>
           </div>
-          <Link to="/dashboard/portfolio" className={styles.link}>
-            Portfelis &gt;&gt;
-          </Link>
           <Link to="/dashboard/profile" className={styles.link}>
             Profilis &gt;&gt;
           </Link>
@@ -54,8 +44,6 @@ function Home() {
               path=""
               element={<h1 className={styles.title}>Sveiki atvykę</h1>}
             />
-            <Route path="company" element={<CompanyProfiles />} />
-            <Route path="physical" element={<PhysicalProfiles />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="users" element={<UsersPage />} />
             <Route

@@ -19,7 +19,7 @@ function ProfilePage() {
     }
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_LINK}/users/get-current`, { credentials: "include" })
+        fetch(`/api/users/getme`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setCurrentUser(data))
     }, [])
@@ -27,7 +27,7 @@ function ProfilePage() {
     async function updateInformation(){
         if (!currentUser) return
 
-        await fetch(`${import.meta.env.VITE_API_LINK}/users/update`, {
+        await fetch(`/api/users/update`, {
             method: "PUT",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

@@ -5,13 +5,23 @@ import styles from "./PhysicalProfiles.module.css"
 function PhysicalProfiles() {
     interface Person {
         id: number;
-        name: string;
+        fullname: string;
         telephone: string;
-        score: number;
     }
 
     const [personID, setPersonID] = useState<string>("");
     const [people, setPeople] = useState<Person[]>([]);
+
+    async function searchProfile() {
+        const response = await fetch(`/api/physical/${personID}`);
+        if (response.ok) {
+            const data = await response.json();
+            setPeople([data]);
+        } else {
+            alert("Nepavyko rasti fizinio asmens");
+        }
+        return;
+    }
 
     return (
         <>
@@ -27,9 +37,8 @@ function PhysicalProfiles() {
                 <thead>
                     <tr key={-1} className={styles.company_table_thead}>
                         <th>Kodas</th>
-                        <th>Pavadinimas</th>
+                        <th>Vardas pavardė</th>
                         <th>Telefono numeris</th>
-                        <th>Reitingas</th>
                     </tr>
                 </thead>
 
@@ -38,9 +47,8 @@ function PhysicalProfiles() {
                     {people.map(person => (
                     <tr key={person.id}>
                         <td>{person.id}</td>
-                        <td>{person.name}</td>
+                        <td>{person.fullname}</td>
                         <td>{person.telephone}</td>
-                        <td>{person.score}</td>
                     </tr>
                     ))
                     }
@@ -58,19 +66,6 @@ function PhysicalProfiles() {
             </table>
         </>
       );
-  
-    
-    async function searchProfile() {
-        const response = await fetch(`${import.meta.env.VITE_API_LINK}/physical/${personID}`);
-        if (response.ok) {
-            const data = await response.json();
-            setPeople([data]);
-        } else {
-            alert("Nepavyko rasti fizinio asmens");
-        }
-        return;
-    }
-
 }
 
 export default PhysicalProfiles

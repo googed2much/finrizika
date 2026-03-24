@@ -15,7 +15,7 @@ function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_LINK}/users/get`, {
+    fetch(`/api/users/get`, {
       credentials: "include",
     })
       .then((res) => res.json())
