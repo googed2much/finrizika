@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./Portfolio.module.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Portfolio() {
     const [viewType,setViewType] = useState<"physical"|"juridical">("physical");
+    
     return (
         <>
             <div>
@@ -43,9 +44,9 @@ function PhysicalIndividual(){
         telephone: string;
         email: string;
     }
-
+    const navigate = useNavigate();
     const [individuals, setIndividuals] = useState<Person[]>([]);
-    const [people, setPeople] = useState<Person[]>([]);
+    // const [people, setPeople] = useState<Person[]>([]);
     const [personID, setPersonID] = useState<string>("");
 
     useEffect(() =>{
@@ -75,7 +76,6 @@ function PhysicalIndividual(){
     });
     return (
         <>
-    
     {/* <h2 className={styles.title}>Fizinių asmenų paieška</h2> */}
 
             <div className={styles.button_div}>
@@ -118,8 +118,8 @@ function PhysicalIndividual(){
                 )}
             </table> */}
     <h3 className={styles.title}>Fizinių asmenų sąrašas</h3>
-    <table className={styles.user_table}>
-        <thead>
+    <table className={styles.tableButtons}>
+        <thead >
             <tr>
                 <th>ID</th>
                 <th>Pilnas Vardas</th>
@@ -129,7 +129,10 @@ function PhysicalIndividual(){
         </thead>
         <tbody>
         {filteredIndividuals.length > 0 && filteredIndividuals.map(individual => (
-            <tr key={individual.id}>
+            <tr key={individual.id}
+            onClick={() => navigate("/physical-rating", { state: { id: individual.id } })}
+            // className={styles.tableButtons}
+            >
                 <td>{individual.id}</td>
                 <td>{individual.fullname}</td>
                 <td>{individual.telephone}</td>
@@ -151,14 +154,98 @@ function PhysicalIndividual(){
     
 }
 function JuridicalIndividual(){
+    interface Company {
+        code: number;     
+        owner: string;
+        telephone: string;
+        email: string;
+    }
+    
+      const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
+      const [companies, setCompanies] = useState<Company[]>([]);
+      async function searchProfile(companyCode: any) {
+        if (companyCode === "") {
+          const response = await fetch(
+            `/api/company/get`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
+    
+          if (!response.ok) {
+            console.error("Failed to get all");
+            return;
+          }
+          const data: Company[] = await response.json();
+          setCompanies(data);
+        } else {
+          const response = await fetch(
+            `/api/company/get/${companyCode}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
+    
+          if (!response.ok) {
+            console.error("Failed to get needed");
+            return;
+          }
+          const data: Company[] = await response.json();
+          setCompanies(data);
+        }
+    }
+    
+    useEffect(() => {
+        searchProfile("");
+    }, []);
     return (
         <>
-            <h1 className={styles.title}>Juridiniu asmenu sąrašas</h1>
 
             <div className={styles.user_div}>
-                <input type="text" placeholder="Paieška..."></input>
-                <a>Sukurti juridinį asmenį</a>
+            <input type="number" min={1} step={1} placeholder="Paieška.. įveskite kodą" value={searchCompanyCode} onChange={e => {setSearchCompanyCode(e.target.value);searchProfile(e.target.value);}}></input>
+            <Link to="/create-juridical" className={styles.link}>Sukurti naują profilį</Link>
             </div>
+            <h3 className={styles.title}>Juridiniu asmenu sąrašas</h3>
+            
+            <table className={styles.company_table}>
+        <thead>
+          <tr className={styles.company_table_thead}>
+            <th>ID</th>
+            <th>Įmonės kodas</th>
+            <th>Pavadinimas</th>
+            <th>Telefono numeris</th>
+            {/* <th>Įvertinimas</th> */}
+          </tr>
+        </thead>
+
+        {companies.length > 0 && (
+          <tbody>
+            {companies.map((company, index) => (
+            <tr key={`${index}`}>
+                <td>{index}</td>
+                <td>{company.code}</td>
+                <td>{company.owner}</td>
+                <td>{company.telephone}</td>
+                {/* <td>{company.score}</td> */}
+            </tr>
+            ))}
+          </tbody>
+        )}
+
+        {companies.length === 0 && (
+        <tbody>
+            <tr key="empty">
+            <td colSpan={5}>Tuščia</td>
+            </tr>
+        </tbody>
+        )}
+      </table>
         </>
     )
 }

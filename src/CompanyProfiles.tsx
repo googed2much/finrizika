@@ -3,16 +3,16 @@ import styles from "./CompanyProfiles.module.css";
 import { NumericInput } from "./Components/NumericInput";
 
 function JuridicalProfiles() {
-  interface Company {
-    id: string;
-    companyCode: string;
-    name: string;
-    phoneNumber: string;
-    score: number;
-  }
+  // interface Company {
+  //   id: string;
+  //   companyCode: string;
+  //   name: string;
+  //   phoneNumber: string;
+  //   score: number;
+  // }
 
-  const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
-  const [companies, setCompanies] = useState<Company[]>([]);
+  // const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
+  // const [companies, setCompanies] = useState<Company[]>([]);
   const [score, setScore] = useState<number>();
 
   // Sending out constants
@@ -41,6 +41,7 @@ function JuridicalProfiles() {
   const [companyCode, setCompanyCode] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   // Code start
 
@@ -48,6 +49,7 @@ function JuridicalProfiles() {
     const required = [
       companyCode,
       name,
+      email,
       phoneNumber,
       shortTermAssets,
       inventory,
@@ -76,38 +78,46 @@ function JuridicalProfiles() {
       alert("Prašome užpildyti visus laukus");
       return;
     }
+    
+    // const payload = {
+    //   shortTermAssets: shortTermAssets === "" ? null : shortTermAssets,
+    //   inventory: inventory === "" ? null : inventory,
+    //   shortTermLiabilities:
+    //     shortTermLiabilities === "" ? null : shortTermLiabilities,
+    //   totalAssets: totalAssets === "" ? null : totalAssets,
+    //   equity: equity === "" ? null : equity,
+    //   netProfit: netProfit === "" ? null : netProfit,
+    //   interest: interest === "" ? null : interest,
+    //   taxes: taxes === "" ? null : taxes,
+    //   interestExpenses: interestExpenses === "" ? null : interestExpenses,
+    //   depreciation: depreciation === "" ? null : depreciation,
+    //   amortization: amortization === "" ? null : amortization,
+    //   financialLiabilities:
+    //     financialLiabilities === "" ? null : financialLiabilities,
+    //   cash: cash === "" ? null : cash,
+    //   salesRevenue: salesRevenue === "" ? null : salesRevenue,
+    //   changeInSalesRevenue:
+    //     changeInSalesRevenue === "" ? null : changeInSalesRevenue,
+    //   companyCode,
+    //   name,
+    //   phoneNumber,
+    // };
     const payload = {
-      shortTermAssets: shortTermAssets === "" ? null : shortTermAssets,
-      inventory: inventory === "" ? null : inventory,
-      shortTermLiabilities:
-        shortTermLiabilities === "" ? null : shortTermLiabilities,
-      totalAssets: totalAssets === "" ? null : totalAssets,
-      equity: equity === "" ? null : equity,
-      netProfit: netProfit === "" ? null : netProfit,
-      interest: interest === "" ? null : interest,
-      taxes: taxes === "" ? null : taxes,
-      interestExpenses: interestExpenses === "" ? null : interestExpenses,
-      depreciation: depreciation === "" ? null : depreciation,
-      amortization: amortization === "" ? null : amortization,
-      financialLiabilities:
-        financialLiabilities === "" ? null : financialLiabilities,
-      cash: cash === "" ? null : cash,
-      salesRevenue: salesRevenue === "" ? null : salesRevenue,
-      changeInSalesRevenue:
-        changeInSalesRevenue === "" ? null : changeInSalesRevenue,
-      companyCode,
-      name,
-      phoneNumber,
+      code: Number(companyCode),
+      owner: name,
+      telephone: phoneNumber,
+      email: email
     };
 
     const response = await fetch(
-      `/api/company/data/create`,
+      `/api/company/create`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+         credentials: "include"
       },
     );
 
@@ -120,49 +130,17 @@ function JuridicalProfiles() {
     console.log("Data sent successfully");
   }
 
-  async function searchProfile() {
-    if (searchCompanyCode === "") {
-      const response = await fetch(
-        `/api/company/data`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        console.error("Failed to get all");
-        return;
-      }
-      const data: Company[] = await response.json();
-      setCompanies(data);
-    } else {
-      const response = await fetch(
-        `/api/company/data/${searchCompanyCode}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        console.error("Failed to get needed");
-        return;
-      }
-      const data: Company[] = await response.json();
-      setCompanies(data);
-    }
-  }
+  
 
   return (
     <>
+    <div className={styles.creationBackground}>
+    <a href="/dashboard">Grįžti atgal</a>
+      <div className={styles.creationDiv}>
+    
       <h1>Jurininių asmenų rizikos įvertinimas</h1>
 
-      <div>
+      <div className="">
         <div>
           <label>Įmonės kodas</label>
           <input
@@ -180,7 +158,14 @@ function JuridicalProfiles() {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-
+        <div>
+          <label>El.paštas</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
         <div>
           <label>Įmonės atstovo telefono numeris</label>
           <input
@@ -282,55 +267,8 @@ function JuridicalProfiles() {
 
       <div>Rizikos įvertinimas: {score}</div>
 
-      <h1 className={styles.title}>Juridinių asmenų paieška</h1>
-
-      <div className={styles.button_div}>
-        <input
-          type="number"
-          min={1}
-          step={1}
-          placeholder="Įmonės kodas"
-          value={searchCompanyCode}
-          onChange={(e) => setSearchCompanyCode(e.target.value)}
-        ></input>
-        <a className={styles.link} onClick={searchProfile}>
-          Paieška
-        </a>
       </div>
-
-      <table className={styles.company_table}>
-        <thead>
-          <tr className={styles.company_table_thead}>
-            <th>ID</th>
-            <th>Įmonės kodas</th>
-            <th>Pavadinimas</th>
-            <th>Telefono numeris</th>
-            <th>Įvertinimas</th>
-          </tr>
-        </thead>
-
-        {companies.length > 0 && (
-          <tbody>
-            {companies.map((company) => (
-              <tr key={company.id}>
-                <td>{company.id}</td>
-                <td>{company.companyCode}</td>
-                <td>{company.name}</td>
-                <td>{company.phoneNumber}</td>
-                <td>{company.score}</td>
-              </tr>
-            ))}
-          </tbody>
-        )}
-
-        {companies.length === 0 && (
-          <tbody>
-            <tr key={0}>
-              <td>Tuščia</td>
-            </tr>
-          </tbody>
-        )}
-      </table>
+      </div>
     </>
   );
 }

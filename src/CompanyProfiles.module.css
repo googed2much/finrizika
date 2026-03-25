@@ -41,3 +41,13 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+.creationBackground{
+    background-color: rgb(199, 199, 236);
+}
+.creationDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

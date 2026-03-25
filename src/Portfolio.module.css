@@ -83,7 +83,25 @@
 .pickbuttons button:hover {
     background-color: #bdbdf7;
 }
+.tableButtons tr:hover {
+    background-color: #bdbdf7;
+    cursor: pointer
+}
+.tableButtons {
+    border: 1px solid black;
+    border-collapse: collapse;
 
+    background-color: rgb(243, 240, 240);
+}
+    .tableButtons thead {
+        background-color: lightgray;
+    }
+    
+    .tableButtons th,
+    .tableButtons td{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 .active {
     background-color: #aeaef2;
     color: black;
