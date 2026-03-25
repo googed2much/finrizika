@@ -77,7 +77,7 @@ function PhysicalCreation(){
     return (
         <>
         <div className={styles.creationBackground}>
-            <a href="/dashboard">Grįžti atgal</a>
+            {/* <a href="/dashboard">Grįžti atgal</a> */}
             <div className={styles.creationDiv}>
                 <div className={styles.creationBox}>
                 <h1>Fizinio asmens profilio kurimas</h1>

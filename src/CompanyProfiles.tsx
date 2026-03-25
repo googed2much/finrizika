@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./CompanyProfiles.module.css";
-import { NumericInput } from "./Components/NumericInput";
+// import { NumericInput } from "./Components/NumericInput";
 
 function JuridicalProfiles() {
   // interface Company {
@@ -13,31 +13,31 @@ function JuridicalProfiles() {
 
   // const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
   // const [companies, setCompanies] = useState<Company[]>([]);
-  const [score, setScore] = useState<number>();
+  // const [score, setScore] = useState<number>();
 
   // Sending out constants
 
-  const [shortTermAssets, setShortTermAssets] = useState<number | "">("");
-  const [inventory, setInventory] = useState<number | "">("");
-  const [shortTermLiabilities, setShortTermLiabilities] = useState<number | "">(
-    "",
-  );
-  const [equity, setEquity] = useState<number | "">("");
-  const [totalAssets, setTotalAssets] = useState<number | "">("");
-  const [netProfit, setNetProfit] = useState<number | "">("");
-  const [interest, setInterest] = useState<number | "">("");
-  const [taxes, setTaxes] = useState<number | "">("");
-  const [interestExpenses, setInterestExpenses] = useState<number | "">("");
-  const [depreciation, setDepreciation] = useState<number | "">("");
-  const [amortization, setAmortization] = useState<number | "">("");
-  const [financialLiabilities, setFinancialLiabilities] = useState<number | "">(
-    "",
-  );
-  const [cash, setCash] = useState<number | "">("");
-  const [salesRevenue, setSalesRevenue] = useState<number | "">("");
-  const [changeInSalesRevenue, setChangeInSalesRevenue] = useState<number | "">(
-    "",
-  );
+  // const [shortTermAssets, setShortTermAssets] = useState<number | "">("");
+  // const [inventory, setInventory] = useState<number | "">("");
+  // const [shortTermLiabilities, setShortTermLiabilities] = useState<number | "">(
+  //   "",
+  // );
+  // const [equity, setEquity] = useState<number | "">("");
+  // const [totalAssets, setTotalAssets] = useState<number | "">("");
+  // const [netProfit, setNetProfit] = useState<number | "">("");
+  // const [interest, setInterest] = useState<number | "">("");
+  // const [taxes, setTaxes] = useState<number | "">("");
+  // const [interestExpenses, setInterestExpenses] = useState<number | "">("");
+  // const [depreciation, setDepreciation] = useState<number | "">("");
+  // const [amortization, setAmortization] = useState<number | "">("");
+  // const [financialLiabilities, setFinancialLiabilities] = useState<number | "">(
+  //   "",
+  // );
+  // const [cash, setCash] = useState<number | "">("");
+  // const [salesRevenue, setSalesRevenue] = useState<number | "">("");
+  // const [changeInSalesRevenue, setChangeInSalesRevenue] = useState<number | "">(
+  //   "",
+  // );
   const [companyCode, setCompanyCode] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -51,21 +51,21 @@ function JuridicalProfiles() {
       name,
       email,
       phoneNumber,
-      shortTermAssets,
-      inventory,
-      shortTermLiabilities,
-      equity,
-      totalAssets,
-      netProfit,
-      interest,
-      taxes,
-      interestExpenses,
-      depreciation,
-      amortization,
-      financialLiabilities,
-      cash,
-      salesRevenue,
-      changeInSalesRevenue,
+      // shortTermAssets,
+      // inventory,
+      // shortTermLiabilities,
+      // equity,
+      // totalAssets,
+      // netProfit,
+      // interest,
+      // taxes,
+      // interestExpenses,
+      // depreciation,
+      // amortization,
+      // financialLiabilities,
+      // cash,
+      // salesRevenue,
+      // changeInSalesRevenue,
     ];
 
     return required.every(
@@ -78,7 +78,7 @@ function JuridicalProfiles() {
       alert("Prašome užpildyti visus laukus");
       return;
     }
-    
+
     // const payload = {
     //   shortTermAssets: shortTermAssets === "" ? null : shortTermAssets,
     //   inventory: inventory === "" ? null : inventory,
@@ -117,7 +117,7 @@ function JuridicalProfiles() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-         credentials: "include"
+        credentials: "include"
       },
     );
 
@@ -125,56 +125,56 @@ function JuridicalProfiles() {
       console.error("Failed to send data");
       return;
     }
-
-    setScore(await response.json());
+    window.location.href = "/dashboard/portfolio";
+    // setScore(await response.json());
     console.log("Data sent successfully");
   }
 
-  
+
 
   return (
     <>
-    <div className={styles.creationBackground}>
-    <a href="/dashboard">Grįžti atgal</a>
-      <div className={styles.creationDiv}>
-    
-      <h1>Jurininių asmenų rizikos įvertinimas</h1>
+      <div className={styles.creationBackground}>
+        {/* <a href="/dashboard">Grįžti atgal</a> */}
+        <div className={styles.creationDiv}>
+          <div className={styles.creationBox}>
+            <h1>Juridinių asmenų kūrimas</h1>
+            <div className={styles.creationDiv2}>
+              <div>
+                <label>Įmonės kodas</label>
+                <input
+                  type="text"
+                  value={companyCode}
+                  onChange={(e) => setCompanyCode(e.target.value)}
+                />
+              </div>
 
-      <div className="">
-        <div>
-          <label>Įmonės kodas</label>
-          <input
-            type="text"
-            value={companyCode}
-            onChange={(e) => setCompanyCode(e.target.value)}
-          />
-        </div>
+              <div>
+                <label>Įmonės pavadinimas</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>El.paštas</label>
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Įmonės atstovo telefono numeris</label>
+                <input
+                  type="text"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </div>
 
-        <div>
-          <label>Įmonės pavadinimas</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>El.paštas</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Įmonės atstovo telefono numeris</label>
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
-
+              {/* 
         <div>
           <label>Trumpalaikis turtas</label>
           <NumericInput value={shortTermAssets} onChange={setShortTermAssets} />
@@ -260,14 +260,15 @@ function JuridicalProfiles() {
             value={changeInSalesRevenue}
             onChange={setChangeInSalesRevenue}
           />
+        </div> */}
+              <button onClick={submitData}>Išsaugoti</button>
+            </div>
+          </div>
+          {/* <button onClick={submitData}>Išsaugoti</button> */}
+
+          {/* <div>Rizikos įvertinimas: {score}</div> */}
+
         </div>
-      </div>
-
-      <button onClick={submitData}>Pateikti</button>
-
-      <div>Rizikos įvertinimas: {score}</div>
-
-      </div>
       </div>
     </>
   );

@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Home.tsx";
 import Login from "./Login.tsx";
 import CreditRatingCalculator from "./CreditRating.tsx";
-import PhysicalCreation from "./PhysicalCreation.tsx";
-import CompanyProfiles from "./CompanyProfiles.tsx"
-import PhysicalProfiles from "./PhysicalProfiles.tsx";
+// import PhysicalCreation from "./PhysicalCreation.tsx";
+// import CompanyProfiles from "./CompanyProfiles.tsx"
+// import PhysicalProfiles from "./PhysicalProfiles.tsx";
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard/*" element={<Home />} />
           <Route path="/Credit-Rating-Calculator" element={<CreditRatingCalculator/>}/>
-          <Route path="/create-physical" element={<PhysicalCreation />} />
+          {/* <Route path="/create-physical" element={<PhysicalCreation />} />
           <Route path="/create-juridical" element={<CompanyProfiles />} />
-          <Route path="/physical-rating" element={<PhysicalProfiles />} />
+          <Route path="/physical-rating" element={<PhysicalProfiles />} /> */}
         </Routes>
       </BrowserRouter>
     </>
