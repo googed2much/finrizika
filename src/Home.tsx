@@ -4,6 +4,9 @@ import ProfilePage from "./ProfilePage";
 import UsersPage from "./UsersPage";
 import CreditRatingCalculator from "./CreditRating";
 import Portfolio from "./Portfolio";
+import CompanyProfiles from "./CompanyProfiles";
+import PhysicalCreation from "./PhysicalCreation";
+import PhysicalProfiles from "./PhysicalProfiles";
 
 function Home() {
   async function logout() {
@@ -51,6 +54,13 @@ function Home() {
               element={<CreditRatingCalculator />}
             />
             <Route path="portfolio" element={<Portfolio />} />
+            <Route path="create-juridical" element={<CompanyProfiles />} />
+            <Route path="create-physical" element={<PhysicalCreation />} />
+            <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
+            <Route path="/physical-rating" element={<PhysicalProfiles />} />
+            {/* PAKEISTI I JURIDINIU FINANSU CREATION PAGE */}
+            <Route path="/juridical-rating" element={<PhysicalProfiles />} />
+            
           </Routes>
         </div>
       </div>

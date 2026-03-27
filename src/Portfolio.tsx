@@ -48,7 +48,7 @@ function PhysicalIndividual(){
     const [individuals, setIndividuals] = useState<Person[]>([]);
     // const [people, setPeople] = useState<Person[]>([]);
     const [personID, setPersonID] = useState<string>("");
-
+    const [filteredIndividuals,setFilteredIndividuals] = useState<Person[]>([]);
     useEffect(() =>{
         const fetchData = async () =>{
             const response = await fetch(`/api/physical/list`)
@@ -60,6 +60,32 @@ function PhysicalIndividual(){
         }
         fetchData();
     },[]);
+    useEffect(()=>{
+        setFilteredIndividuals(individuals);
+    }, [individuals]);
+    async function searchProfile(physicalId: any) {
+        if (physicalId === "") {
+          setFilteredIndividuals(individuals);
+        }
+        else {
+            const response = await fetch(
+                `/api/physical/${physicalId}`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                },
+              );
+        
+              if (!response.ok) {
+                console.error("Failed to get physical person");
+                return;
+              }
+              const data: Person = await response.json();
+              setFilteredIndividuals([data]);
+        }
+    }
     // async function searchProfile() {
     //     const response = await fetch(`/api/physical/${personID}`);
     //     if (response.ok) {
@@ -70,18 +96,15 @@ function PhysicalIndividual(){
     //     }
     //     return;
     // }
-    const filteredIndividuals = individuals.filter(individual => {
-        if (personID === "") return true;
-        return individual.id.toString().includes(personID);
-    });
+    
     return (
         <>
     {/* <h2 className={styles.title}>Fizinių asmenų paieška</h2> */}
 
             <div className={styles.button_div}>
-                <input type="number" min={1} step={1} placeholder="Paieška.. įveskite kodą" value={personID} onChange={e => setPersonID(e.target.value)}></input>
+                <input type="number" min={1} step={1} placeholder="Paieška.. įveskite kodą" value={personID} onChange={e => {setPersonID(e.target.value);searchProfile(e.target.value)}}></input>
                 {/* <a className={styles.link} onClick={ searchProfile }>Paieška</a> */}
-                <Link to="/create-physical" className={styles.link}>Sukurti naują profilį</Link>
+                <Link to="/dashboard/create-physical" className={styles.link}>Sukurti naują profilį</Link>
             </div>
             
             {/* <table className={styles.company_table}>
@@ -130,7 +153,7 @@ function PhysicalIndividual(){
         <tbody>
         {filteredIndividuals.length > 0 && filteredIndividuals.map(individual => (
             <tr key={individual.id}
-            onClick={() => navigate("/physical-profile", { state: { id: individual.id } })}
+            onClick={() => navigate("/dashboard/physical-rating", { state: { id: individual.id } })}
             // className={styles.tableButtons}
             >
                 <td>{individual.id}</td>
@@ -142,7 +165,7 @@ function PhysicalIndividual(){
         )
         }
 
-        {individuals.length == 0 && (
+        {filteredIndividuals.length == 0 && (
             <tr key={0}>
                 <td>Tuščia</td>
             </tr>
@@ -160,7 +183,7 @@ function JuridicalIndividual(){
         telephone: string;
         email: string;
     }
-    
+      const navigate = useNavigate();
       const [searchCompanyCode, setSearchCompanyCode] = useState<string>("");
       const [companies, setCompanies] = useState<Company[]>([]);
       async function searchProfile(companyCode: any) {
@@ -209,17 +232,18 @@ function JuridicalIndividual(){
 
             <div className={styles.user_div}>
             <input type="number" min={1} step={1} placeholder="Paieška.. įveskite kodą" value={searchCompanyCode} onChange={e => {setSearchCompanyCode(e.target.value);searchProfile(e.target.value);}}></input>
-            <Link to="/create-juridical" className={styles.link}>Sukurti naują profilį</Link>
+            <Link to="/dashboard/create-juridical" className={styles.link}>Sukurti naują profilį</Link>
             </div>
             <h3 className={styles.title}>Juridiniu asmenu sąrašas</h3>
             
-            <table className={styles.company_table}>
+            <table className={styles.tableButtons}>
         <thead>
           <tr className={styles.company_table_thead}>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Įmonės kodas</th>
             <th>Pavadinimas</th>
             <th>Telefono numeris</th>
+            <th>El.Paštas</th>
             {/* <th>Įvertinimas</th> */}
           </tr>
         </thead>
@@ -227,11 +251,15 @@ function JuridicalIndividual(){
         {companies.length > 0 && (
           <tbody>
             {companies.map((company, index) => (
-            <tr key={`${index}`}>
-                <td>{index}</td>
+            <tr key={`${index}`}
+            onClick={() => navigate("/dashboard/juridical-rating", { state: { id: company.code } })}
+            // className={styles.tableButtons}
+            >
+                {/* <td>{index}</td> */}
                 <td>{company.code}</td>
                 <td>{company.owner}</td>
                 <td>{company.telephone}</td>
+                <td>{company.email}</td>
                 {/* <td>{company.score}</td> */}
             </tr>
             ))}
