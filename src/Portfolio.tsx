@@ -153,7 +153,7 @@ function PhysicalIndividual(){
         <tbody>
         {filteredIndividuals.length > 0 && filteredIndividuals.map(individual => (
             <tr key={individual.id}
-            onClick={() => navigate("/dashboard/physical-rating", { state: { id: individual.id } })}
+            onClick={() => navigate("/dashboard/physical-profile", { state: { id: individual.id } })}
             // className={styles.tableButtons}
             >
                 <td>{individual.id}</td>
@@ -252,7 +252,7 @@ function JuridicalIndividual(){
           <tbody>
             {companies.map((company, index) => (
             <tr key={`${index}`}
-            onClick={() => navigate("/dashboard/juridical-rating", { state: { id: company.code } })}
+            onClick={() => navigate("/dashboard/juridical-profile", { state: { id: company.code } })}
             // className={styles.tableButtons}
             >
                 {/* <td>{index}</td> */}

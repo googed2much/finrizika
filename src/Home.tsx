@@ -57,9 +57,8 @@ function Home() {
             <Route path="create-juridical" element={<CompanyProfiles />} />
             <Route path="create-physical" element={<PhysicalCreation />} />
             <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
-            <Route path="/physical-rating" element={<PhysicalProfiles />} />
-            {/* PAKEISTI I JURIDINIU FINANSU CREATION PAGE */}
-            <Route path="/juridical-rating" element={<PhysicalProfiles />} />
+            <Route path="/physical-profile" element={<PhysicalProfiles />} />
+            <Route path="/juridical-profile" element={<PhysicalProfiles />} />
             
           </Routes>
         </div>
