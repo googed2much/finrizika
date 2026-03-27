@@ -1,43 +1,32 @@
-.title {
-    margin-bottom: 10px;
+.backgroundColor{
+    background-color: rgb(199, 199, 236);
+    height: 100vw;
 }
 
-.button_div {
+.profileGrid{
+    padding-top: 10px;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.profileBox {
+    border: 5px black solid;
+    padding: 100px;
+    background-color: rgb(255, 255, 215);
+}
+
+.buttonDiv {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.profileOptions {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-
-    margin-bottom: 10px;
-}
-
-.link {
-    text-decoration: none;
-    color: black;
-    border: 2px black solid;
-    background-color: white;
-}
-
-.link:hover {
-    cursor: pointer;
-    color: white;
-    border: 2px white solid;
-    background-color: black;
-}
-
-.company_table {
-    border: 1px solid black;
-    border-collapse: collapse;
-
-    background-color: rgb(243, 240, 240);
-}
-
-.company_table thead {
-    border: 1px solid black;
-    background-color: lightgray;
-}
-
-.company_table th,
-.company_table td{
-    padding-left: 30px;
-    padding-right: 30px;
 }

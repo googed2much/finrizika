@@ -130,7 +130,7 @@ function PhysicalIndividual(){
         <tbody>
         {filteredIndividuals.length > 0 && filteredIndividuals.map(individual => (
             <tr key={individual.id}
-            onClick={() => navigate("/physical-rating", { state: { id: individual.id } })}
+            onClick={() => navigate("/physical-profile", { state: { id: individual.id } })}
             // className={styles.tableButtons}
             >
                 <td>{individual.id}</td>

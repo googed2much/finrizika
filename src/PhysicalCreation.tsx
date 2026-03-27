@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styles from "./PhysicalCreation.module.css"
+import { useNavigate } from "react-router-dom";
 
 function PhysicalCreation(){
+    const navigate = useNavigate();
+
     interface PersonProfile{
         id: number;
         fullname: string;
@@ -14,7 +17,6 @@ function PhysicalCreation(){
         birthday: Date;
         sex: string;
         homeStatus: string;
-        createdById: number;
     }
 
     const [personProfile, setPersonProfile] = useState<PersonProfile>({
@@ -29,7 +31,6 @@ function PhysicalCreation(){
         birthday: new Date(),
         sex: "OTHER",
         homeStatus: "NONE",
-        createdById: 0
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +46,7 @@ function PhysicalCreation(){
         const response = await fetch(`/api/physical/save`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(personProfile), credentials: "include"});
         if(response.ok){
             alert("Išsaugotas");
-            window.location.href = "/dashboard/portfolio";
+            navigate("/physical-profile", { state: { id: personProfile.id } })
         }
         else {
             alert("Nepavyko išsaugoti asmens");

@@ -17,7 +17,7 @@ function App() {
           <Route path="/Credit-Rating-Calculator" element={<CreditRatingCalculator/>}/>
           <Route path="/create-physical" element={<PhysicalCreation />} />
           <Route path="/create-juridical" element={<CompanyProfiles />} />
-          <Route path="/physical-rating" element={<PhysicalProfiles />} />
+          <Route path="/physical-profile" element={<PhysicalProfiles />} />
         </Routes>
       </BrowserRouter>
     </>
