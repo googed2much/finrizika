@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes,useLocation } from "react-router-dom";
 import styles from "./Home.module.css";
 import ProfilePage from "./ProfilePage";
 import UsersPage from "./UsersPage";
@@ -7,8 +7,11 @@ import Portfolio from "./Portfolio";
 import CompanyProfiles from "./CompanyProfiles";
 import PhysicalCreation from "./PhysicalCreation";
 import PhysicalProfiles from "./PhysicalProfiles";
+import CompanyCreation from "./CompanyCreation";
 
 function Home() {
+  
+  const location = useLocation();
   async function logout() {
     await fetch(`/api/users/logout`);
     window.location.href = "/login";
@@ -17,7 +20,7 @@ function Home() {
   return (
     <>
       <div className={styles.dashboard_grid}>
-        <div className={styles.dashboard_selection_div}>
+        <div className={`${styles.dashboard_selection_div} ${location.pathname === "/dashboard/physical-profile" ? styles.physicalNavOverride : location.pathname==="/dashboard/juridical-profile" ? styles.physicalNavOverride : location.pathname==="/dashboard/portfolio" ? styles.physicalNavOverride : "" }`}>
           <h1>Finrizika</h1>
           <Link to="/dashboard/portfolio" className={styles.link}>Portfelis &gt;&gt;</Link>
           <div className={styles.dropdown}>
@@ -41,7 +44,7 @@ function Home() {
           </a>
         </div>
 
-        <div className={styles.dashboard_content_div}>
+        <div className={`${styles.dashboard_content_div} ${location.pathname === "/dashboard/physical-profile" ? styles.physicalNavOverrideContent : location.pathname === "/dashboard/juridical-profile" ? styles.physicalNavOverrideContent : location.pathname==="/dashboard/portfolio" ? styles.physicalNavOverrideContent : "" }`}>
           <Routes>
             <Route
               path=""
@@ -57,8 +60,8 @@ function Home() {
             <Route path="create-juridical" element={<CompanyProfiles />} />
             <Route path="create-physical" element={<PhysicalCreation />} />
             <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
-            <Route path="/physical-profile" element={<PhysicalProfiles />} />
-            <Route path="/juridical-profile" element={<PhysicalProfiles />} />
+            <Route path="physical-profile" element={<PhysicalProfiles />} />
+            <Route path="juridical-profile" element={<CompanyCreation />} />
             
           </Routes>
         </div>

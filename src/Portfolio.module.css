@@ -1,112 +1,162 @@
-.title {
-    /* margin-bottom: 10px; */
-}
-.title2 {
-    margin-bottom: 5px;
-    -webkit-text-fill-color: rgb(84, 83, 83);
+/* Page background */
+
+.backgroundColor {
+    background: #f4f6f9;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.user_div {
+/* Main card */
+
+.profileBox {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Subtitle */
+
+.subtitle {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* Tabs */
+
+.tabs {
     display: flex;
-    flex-direction: row;
     gap: 10px;
-    margin-bottom: 5px;
-}
-
-.user_table {
-    border: 1px solid black;
-    border-collapse: collapse;
-
-    background-color: rgb(243, 240, 240);
-}
-
-.user_table thead {
-    border: 1px solid black;
-    background-color: lightgray;
-}
-
-.user_table th,
-.user_table td{
-    padding-left: 30px;
-    padding-right: 30px;
-}
-.company_table {
-    border: 1px solid black;
-    border-collapse: collapse;
-
-    background-color: rgb(243, 240, 240);
-}
-
-.company_table thead {
-    border: 1px solid black;
-    background-color: lightgray;
-}
-
-.company_table th,
-.company_table td{
-    padding-left: 30px;
-    padding-right: 30px;
-}
-.button_div {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-
-    margin-bottom: 10px;
-}
-.link {
-    padding: 3px 6px;
-    text-decoration: none;
-    color: black;
-    border: 2px black solid;
-    background-color: white;
-}
-.link:hover {
-    cursor: pointer;
-    color: white;
-    border: 2px white solid;
-    background-color: black;
-}
-.pickbuttons {
-    display: flex;
-    gap: 12px;
     margin-bottom: 20px;
 }
 
-.pickbuttons button {
-    padding: 6px 10px;
+.tabs button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
     cursor: pointer;
-    border: 2px black solid;
-    margin-bottom: 30px;
+    font-weight: 500;
 }
 
-.pickbuttons button:hover {
-    background-color: #bdbdf7;
+.tabs button:hover {
+    background: #e9edf5;
 }
-.tableButtons tr:hover {
-    background-color: #bdbdf7;
-    cursor: pointer
+
+.activeTab {
+    background: #2a7cff !important;
+    color: white;
+    border-color: #2a7cff;
 }
-.tableButtons {
-    border: 1px solid black;
+
+/* Content */
+
+.content {
+    margin-top: 10px;
+}
+
+/* Toolbar (search + create) */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.toolbar input {
+    width: 260px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.toolbar input:focus {
+    outline: none;
+    border-color: #2a7cff;
+}
+
+/* Create button */
+
+.link {
+    padding: 8px 14px;
+    text-decoration: none;
+    background: #2a7cff;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.link:hover {
+    background: #1f63cc;
+}
+
+/* Section titles */
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Tables */
+
+table {
+    width: 100%;
     border-collapse: collapse;
+    margin-bottom: 15px;
+}
 
-    background-color: rgb(243, 240, 240);
+thead {
+    background: #f1f3f6;
 }
-    .tableButtons thead {
-        background-color: lightgray;
-    }
-    
-    .tableButtons th,
-    .tableButtons td{
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-.active {
-    background-color: #aeaef2;
-    color: black;
+
+th {
+    text-align: left;
+    padding: 10px;
+    font-size: 13px;
 }
-.contentBlock {
-    border-top: 2px solid #3a3a3f;
-    padding-top: 30px;
+
+td {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background: #f5f8ff;
+}
+
+/* Pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.pagination button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background: #f0f3fa;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: default;
 }

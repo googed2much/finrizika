@@ -77,3 +77,25 @@
 .dropdown:hover .dropdown_content {
     display: block;
 }
+.physicalNavOverride {
+    background-color: #f4f6f9 !important; /* match page background */
+    border-right: 4px #ccc solid; /* optional softer border */
+}
+
+.physicalNavOverride .link,
+.physicalNavOverride .link2 {
+    color: black; /* links remain black */
+}
+
+.physicalNavOverride .link:hover,
+.physicalNavOverride .link2:hover {
+    color: #2a7cff; /* page accent color hover */
+}
+
+/* Optional: dropdown background match page */
+.physicalNavOverride .dropdown_content {
+    background-color: #f4f6f9;
+}
+.physicalNavOverrideContent {
+    background-color: #f4f6f9 !important; 
+}

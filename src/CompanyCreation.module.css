@@ -1,0 +1,204 @@
+.backgroundColor {
+    background: #f4f6f9;
+    min-height: 100%;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Page title */
+.backgroundColor h1 {
+    margin-bottom: 25px;
+}
+
+/* Grid layout */
+.profileGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* Card container */
+.profileBox {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+}
+
+/* Full width sections */
+.fullWidth {
+    grid-column: span 2;
+}
+
+/* Section titles */
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Profile form layout */
+.profileOptions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+}
+
+.profileOptions label {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Inputs */
+.creationBackground input,
+select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 3px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.creationBackground input:focus,
+select:focus {
+    outline: none;
+    border-color: #2a7cff;
+}
+
+/* Buttons */
+.creationBackground button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #2a7cff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.creationBackground button:hover {
+    background: #1f63cc;
+}
+
+/* Button container */
+.buttonDiv {
+    grid-column: span 2;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Tables */
+.creationBackground table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.creationBackground table th {
+    background: #f1f3f6;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px;
+    font-size: 13px;
+}
+
+.creationBackground table td {
+    padding: 8px;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+}
+
+.creationBackground table tr:hover {
+    background: #fafafa;
+}
+
+/* Forms under tables */
+.creationBackground form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* Make form button full width */
+.creationBackground form button {
+    grid-column: span 3;
+}
+
+/* Document list */
+.documentList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.documentItem {
+    display: flex;
+    justify-content: space-between;
+    background: #f7f7f7;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.documentItem a {
+    text-decoration: none;
+    color: #2a7cff;
+}
+
+/* Rating style */
+.ratingScore {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.ratingGrade {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2a7cff;
+}
+.ratingContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ratingSummary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.totalScore {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.ratingGrade {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.gradeInfo {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.scoreBreakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.scoreItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.recalculateBtn {
+    align-self: flex-start;
+}

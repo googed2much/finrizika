@@ -6,7 +6,7 @@ function PhysicalCreation(){
     const navigate = useNavigate();
 
     interface PersonProfile{
-        id: number;
+        citizenId: number;
         fullname: string;
         telephone: string;
         email: string;
@@ -20,7 +20,7 @@ function PhysicalCreation(){
     }
 
     const [personProfile, setPersonProfile] = useState<PersonProfile>({
-        id: 0,
+        citizenId: 0,
         fullname: "",
         telephone: "",
         email: "",
@@ -45,8 +45,10 @@ function PhysicalCreation(){
     async function saveProfile(){
         const response = await fetch(`/api/physical/save`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(personProfile), credentials: "include"});
         if(response.ok){
-            alert("Išsaugotas");
-            navigate("/physical-profile", { state: { id: personProfile.id } })
+            // alert("Išsaugotas");
+            const data = await response.json();
+            console.log("SAVED ID ",data.id);
+            navigate("/dashboard/physical-profile", { state: { id: data } })
         }
         else {
             alert("Nepavyko išsaugoti asmens");
@@ -56,7 +58,7 @@ function PhysicalCreation(){
 
 
     const FIELDS: { name: keyof PersonProfile; label: string; type: string; options?: {value: string; label2: string}[] }[] = [
-        { name: "id",          label: "Asmens kodas",     type: "number" },
+        { name: "citizenId",          label: "Asmens kodas",     type: "number" },
         { name: "fullname",    label: "Vardas pavardė",   type: "text"   },
         { name: "telephone",  label: "Telefono numeris",  type: "text"   },
         { name: "email",  label: "Elektroninis paštas",  type: "text"   },
