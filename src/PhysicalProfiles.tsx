@@ -111,6 +111,7 @@ function Rating({personId}:any){
     )
 }
 function Employment({personId}:any){
+
     interface work{
         personId : number,
         salary : number,
@@ -121,7 +122,8 @@ function Employment({personId}:any){
         endDate : Date | null,
         workphone : string
     }
-     interface workForList{
+
+    interface workForList{
         id : number,
         salary : number,
         post : number,
@@ -131,8 +133,9 @@ function Employment({personId}:any){
         endDate : string,
         workphone : string
     }
+
     const [workPlace,setWorkPlace] = useState<work>({
-        personId:personId,
+        personId: personId,
         salary: 0,
         post : 1,
         employer: "",
@@ -141,6 +144,7 @@ function Employment({personId}:any){
         endDate: null,
         workphone: ""
     });
+
     const [workList,setWorkList] = useState<workForList[]>([]);
     const [postString,setPostString] = useState<string>("Pilnu Etatu");
     useEffect(()=>{
@@ -149,8 +153,9 @@ function Employment({personId}:any){
             personId:personId
         }));
     },[personId]);
-    const handleChange=(c:React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
-        const {id,value,type} = c.target;
+
+    const handleChange = (c:React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
+        const {id, value, type} = c.target;
         let finalValue: any = value;
         if(type === 'number'){
             finalValue = Number(value);
@@ -159,14 +164,17 @@ function Employment({personId}:any){
             finalValue = new Date(value);
         }
         else if (type ==='text'){
-            finalValue=String(value);
+            finalValue = String(value);
+        }
+        else {
+            finalValue = String(value);
         }
         setWorkPlace({
             ...workPlace,
             [id]:finalValue
         });
-
     }
+
     useEffect(()=>{
         if(workPlace.post===1){
         setPostString("Pilnu etatu");
@@ -177,7 +185,8 @@ function Employment({personId}:any){
         else if (workPlace.post===0){
             setPostString("Kontraktinis");
         }
-    },[workPlace.post]);
+    }, [workPlace.post]);
+
     const jobList =async ()=>{
         const response = await fetch(`/api/physical/get/${personId}/employment`);
         if(!response.ok){
@@ -187,9 +196,11 @@ function Employment({personId}:any){
         const data = await response.json();
         setWorkList(data);
     }
+
     useEffect (()=>{
         jobList()
     },[personId]);
+
     async function saveJob(c: React.SubmitEvent){
         c.preventDefault();
         const response = await fetch(`/api/physical/save/employment`,{
@@ -211,6 +222,7 @@ function Employment({personId}:any){
         console.log("issaugotas darbas: ",result);
         jobList();
     }
+
     return (
         <>
         <h1 className={styles.title}>Darbingumas</h1>
@@ -249,14 +261,15 @@ function Employment({personId}:any){
         )}
         </tbody>
     </table>
+
     <form onSubmit={saveJob}>
         <input id = "employer" type = "text" value = {workPlace.employer} onChange={handleChange} placeholder="darbas"/>
         <input id = "salary" type = "number" value = {workPlace.salary || ""} onChange={handleChange} placeholder="Alga"/>
         <input id ="position" type = "text" value = {workPlace.position} onChange={handleChange} placeholder="pozicija"/>
-        <select id ="post" value = {postString} onChange={handleChange}>
-            <option value = "1">Pilnu Etatu</option>
+        <select id="post" onChange={handleChange}>
+            <option value = "1" selected>Pilnu Etatu</option>
             <option value = "0.5">Dalinai</option>
-            <option value = "0">Konraktinis</option>
+            <option value = "0">Kontraktinis</option>
         </select>
         {/* <input id ="post" type = "number" value = {workPlace.post || ""} onChange={handleChange} placeholder="tipas"/> */}
         <input id = "workphone" type="text" value = {workPlace.workphone} onChange={handleChange}placeholder="darbo vietos numeris"/>
@@ -265,7 +278,7 @@ function Employment({personId}:any){
        
         <button type = "submit">Prideti</button>
     </form>
-        </>
+    </>
     )
 }
 function CreditHistory({personId}:any){
@@ -489,11 +502,10 @@ function Documents({personId}: any){
 
 }
 function EditProfile({id}:any){
-//  const { state } = useLocation();
-//     const { id } = state;
 
     interface PersonProfile1 {
-        citizenId: number;
+        id: number,
+        citizenId: string;
         fullname: string;
         telephone: string;
         email: string;
@@ -504,11 +516,11 @@ function EditProfile({id}:any){
         birthday: Date;
         sex: string;
         homeStatus: string;
-        createdBy: string;
     }
 
     const [personProfile1, setPersonProfile1] = useState<PersonProfile1>({
-        citizenId: 0,
+        id: 0,
+        citizenId: "",
         fullname: "",
         telephone: "",
         email: "",
@@ -519,7 +531,6 @@ function EditProfile({id}:any){
         birthday: new Date(),
         sex: "OTHER",
         homeStatus: "NONE",
-        createdBy: ""
     });
 
     useEffect(() => {
@@ -551,7 +562,7 @@ function EditProfile({id}:any){
     };
 
     async function updateProfile(){
-        const response = await fetch(`/api/physical/update`, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(personProfile1), credentials: "include"});
+        const response = await fetch(`/api/physical/update`, {method: "PATCH", headers: {"Content-Type": "application/json"}, body: JSON.stringify(personProfile1), credentials: "include"});
         if(response.ok){
             alert("Pakeista");
         }
@@ -579,7 +590,6 @@ function EditProfile({id}:any){
         { name: "birthday",   label: "Gimimo data",       type: "date"   },
         { name: "sex",        label: "Lytis",             type: "select", options: [{value:"MALE", label2:"Vyras"}, {value:"FEMALE", label2:"Moteris"}, {value:"OTHER", label2:"Kita"}]},
         { name: "homeStatus", label: "Namų statusas",     type: "select", options: [{value:"NONE", label2:"Nėra"}, {value:"RENTING", label2:"Nuomojasi"}, {value:"MORTGAGE", label2:"Išsiperka"}, {value:"OWNER", label2:"Turi"}]},
-        { name: "createdBy", label: "Sukure", type: "disabledText"}
     ];
 
     //--------------------------------------------------------------------------------------------------------------------------

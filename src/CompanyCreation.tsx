@@ -304,15 +304,15 @@ function InputRatingInformation({id} : any){
 }
 function EditProfile({id}: any){
     interface profile {
-        companyId: number,
+        id: number
+        companyId: string,
         name : string,
         email : string,
         telephone: string,
         ownerFullname: string,
-        id: number
     }
     const [company,setCompany] = useState<profile>({
-        companyId: 0,
+        companyId: "",
         name : "",
         email : "",
         telephone : "",

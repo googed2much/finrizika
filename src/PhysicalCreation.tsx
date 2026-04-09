@@ -6,7 +6,7 @@ function PhysicalCreation(){
     const navigate = useNavigate();
 
     interface PersonProfile{
-        citizenId: number;
+        citizenId: string;
         fullname: string;
         telephone: string;
         email: string;
@@ -20,7 +20,7 @@ function PhysicalCreation(){
     }
 
     const [personProfile, setPersonProfile] = useState<PersonProfile>({
-        citizenId: 0,
+        citizenId: "",
         fullname: "",
         telephone: "",
         email: "",
@@ -58,7 +58,7 @@ function PhysicalCreation(){
 
 
     const FIELDS: { name: keyof PersonProfile; label: string; type: string; options?: {value: string; label2: string}[] }[] = [
-        { name: "citizenId",          label: "Asmens kodas",     type: "number" },
+        { name: "citizenId",          label: "Asmens kodas",     type: "text" },
         { name: "fullname",    label: "Vardas pavardė",   type: "text"   },
         { name: "telephone",  label: "Telefono numeris",  type: "text"   },
         { name: "email",  label: "Elektroninis paštas",  type: "text"   },

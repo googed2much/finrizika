@@ -9,12 +9,11 @@ import Modal from "./Components/Modal";
 
 function Portfolio() {
     const [viewType,setViewType] = useState<"physical"|"juridical">("physical");
-        
     const [showPhysModal,setPhysModal] = useState(false);
     const [showJurModal,setJurModal] = useState(false);
     return (
         <>
-             <div className={styles.backgroundColor}>
+        <div className={styles.backgroundColor}>
         <div className={styles.profileBox}>
             
             <h1>Portfelis</h1>
@@ -77,8 +76,8 @@ function PhysicalIndividual({setPhysModal}: {setPhysModal:(v:boolean)=>void}){
         fetchPageInfo();   
     },[]);
     interface Person {
-        citizenId : string, 
         id: number;
+        citizenId : string, 
         fullname: string;
         telephone: string;
         email: string;

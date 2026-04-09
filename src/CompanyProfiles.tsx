@@ -6,7 +6,7 @@ import styles from "./CompanyProfiles.module.css";
 function JuridicalProfiles() {
   const navigate = useNavigate();
 
-  const [companyCode, setCompanyCode] = useState<string>("");
+  const [companyId, setCompanyId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -15,7 +15,7 @@ function JuridicalProfiles() {
 
   function allFieldsFilled() {
     const required = [
-      companyCode,
+      companyId,
       name,
       email,
       phoneNumber,
@@ -34,7 +34,7 @@ function JuridicalProfiles() {
     }
 
     const payload = {
-      companyId: Number(companyCode),
+      companyId: companyId,
       name: name,
       telephone: phoneNumber,
       email: email,
@@ -49,7 +49,7 @@ function JuridicalProfiles() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        // credentials: "include"
+        credentials: "include"
       },
     );
 
@@ -75,8 +75,8 @@ function JuridicalProfiles() {
                 <label>Įmonės kodas</label>
                 <input
                   type="text"
-                  value={companyCode}
-                  onChange={(e) => setCompanyCode(e.target.value)}
+                  value={companyId}
+                  onChange={(e) => setCompanyId(e.target.value)}
                 />
               </div>
 
