@@ -8,35 +8,36 @@ function PhysicalProfiles() {
     console.log("id: ",id);
     return (
         <div className={styles.backgroundColor}>
-        <div className={styles.profileBox}>
-            
-        <div className={styles.creationBackground}>
-        <h1 className="">Fizinis Asmuo</h1>
-        {/* <a href="/dashboard/portfolio">Grįžti atgal</a> */}
-        
-        <div className={styles.profileGrid}>
             <div className={styles.profileBox}>
-                <EditProfile id = {id}/>
-            </div>
+                <div className={styles.creationBackground}>
+                <h1 className="">Fizinis Asmuo</h1>
+                    <div className={styles.profileGrid}>
+                        <div className={styles.profileBox}>
+                            <EditProfile id = {id}/>
+                        </div>
 
-            <div className={styles.profileBox}>
-                    <Rating personId ={id}/>
+                        <div className={styles.profileBox}>
+                            <Rating personId ={id}/>
+                        </div>
+                        
+                        <div className={`${styles.profileBox} ${styles.fullWidth}`}>
+                            <Employment personId={id}/>
+                        </div>
+
+                        <div className={`${styles.profileBox} ${styles.fullWidth}`}>
+                            <CreditHistory personId={id}/>
+                        </div>
+
+                        <div className={`${styles.profileBox} ${styles.fullWidth}`}>
+                            <Documents personId={id}/>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className={`${styles.profileBox} ${styles.fullWidth}`}>
-                <Employment personId={id}/>
-            </div>
-            <div className={`${styles.profileBox} ${styles.fullWidth}`}>
-                <CreditHistory personId={id}/>
-            </div>
-            <div className={`${styles.profileBox} ${styles.fullWidth}`}>
-                <Documents personId={id}/>
-            </div>
-        </div>
-        </div>
-        </div>
         </div>
       );
 }
+
 function Rating({personId}:any){
     interface rating{
         totalScore : number,
@@ -409,7 +410,6 @@ function CreditHistory({personId}:any){
     </table>
     
         <form onSubmit={saveCreditForm}>
-            {/* <input type = "number" id = "personId" name="id" value={creditForm.personId} onChange={handleChange}/> */}
             <input type = "number" id = "amount" placeholder="suma" value={creditForm.amount||""} onChange={handleChange}/>
             <input type = "number" id = "interestRate" placeholder="palukanu %" value = {creditForm.interestRate || ""} onChange={handleChange}/>
             <input type = "number" id = "latePaymentCount" placeholder="Velavimų sumokėti skaičius" value = {creditForm.latePaymentCount || ""} onChange={handleChange}/>
@@ -501,7 +501,8 @@ function Documents({personId}: any){
     );
 
 }
-function EditProfile({id}:any){
+
+function EditProfile({id}: any){
 
     interface PersonProfile1 {
         id: number,
@@ -573,7 +574,15 @@ function EditProfile({id}:any){
     }
 
     async function deleteProfile(){
-
+        const response = await fetch(`/api/physical/delete/${id}`, {method: "DELETE", credentials: "include"});
+        const data = await response.text();
+        if(response.ok && Number(data) == id){
+            alert("Istrinta");
+            window.location.replace("/dashboard/portfolio");
+        }
+        else{
+            alert("Nepavyko");
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
