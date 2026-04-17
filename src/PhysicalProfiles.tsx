@@ -147,7 +147,7 @@ function Employment({personId}:any){
     });
 
     const [workList,setWorkList] = useState<workForList[]>([]);
-    const [postString,setPostString] = useState<string>("Pilnu Etatu");
+    // const [postString,setPostString] = useState<string>("Pilnu Etatu");
     useEffect(()=>{
         setWorkPlace(prev => ({
             ...prev,
@@ -178,13 +178,13 @@ function Employment({personId}:any){
 
     useEffect(()=>{
         if(workPlace.post===1){
-        setPostString("Pilnu etatu");
+        // setPostString("Pilnu etatu");
         }
         else if (workPlace.post===0.5){
-            setPostString("Dalinai");
+            // setPostString("Dalinai");
         }
         else if (workPlace.post===0){
-            setPostString("Kontraktinis");
+            // setPostString("Kontraktinis");
         }
     }, [workPlace.post]);
 

@@ -94,7 +94,7 @@ function Documents({id}: any){
                 onChange={handleFileChange}
                 />
             </label>
-                </button>
+            </button>
         </div>
         </>
     );
@@ -148,7 +148,7 @@ function Rating({id}:any){
                 <h2 className={styles.title}>Reitingas</h2>
                 <div className={styles.ratingSummary}>
                     <div className={styles.totalScore}>
-                        {evalu.totalScore}
+                        {evalu.totalScore.toFixed(2)}
                     </div>
                     <div className={styles.gradeBlock}>
                         <div className={styles.ratingGrade}>{grade}</div>
@@ -169,7 +169,7 @@ function Rating({id}:any){
                             <span>{evalu.netDebtRatio}</span>
                         </div>
                         <div className={styles.scoreItem}>
-                            <span>Grunasis pelningumas</span>
+                            <span>Grynasis pelningumas</span>
                             <span>{evalu.netProfitability}</span>
                         </div>    
                         <div className={styles.scoreItem}>
@@ -274,6 +274,16 @@ function InputRatingInformation({id} : any){
         setCompanyData(data);
         console.log("sekmingai paimti duomenys");
     }
+    const readPdf = async (c: React.SubmitEvent) => {
+        c.preventDefault();
+        const response = await fetch (`/api/juridical/read/data/${companyData.companyId}`);
+        if(!response.ok){
+            alert("Nepavyko nuskaityti dokumento");
+            return;
+        }
+        console.log("sėkmingai nuskaitytas dokas");
+        fetchData();
+    };
     return (
         <>
         <p className={styles.title}>Finansiniai duomenys</p>
@@ -296,9 +306,12 @@ function InputRatingInformation({id} : any){
         
           <label>Pardavimų pajamos naujausių metų<input id = "salesRevenueCurrent" type = "number" value={companyData.salesRevenueCurrent || ""} onChange={handleChange} placeholder="Pardavimų pajamos naujausių metų" /></label>
           <label>Pardavimų pajamos praeitais metais<input id = "salesRevenue1YearOld" type = "number" value={companyData.salesRevenue1YearOld || ""} onChange={handleChange} placeholder="Pardavimų pajamos praeitais metais" /></label>
-        
           <button type= "submit">Išsaugoti</button>
-        </form>
+          </form>
+          <form className={styles.buttonDiv} onSubmit={readPdf}>
+          <button className={styles.fullWidth} type = "submit">Nuskaityti duomenis iš dokumento</button>
+          </form>
+        
         </>
     )
 }
