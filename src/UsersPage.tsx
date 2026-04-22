@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
+import AccountCreation from "./AccountCreation.tsx"
+import Popup from 'reactjs-popup';
 import styles from "./UsersPage.module.css";
 
 function UsersPage() {
   interface User {
     id: bigint;
     email: string;
-    password: string;
     telephone: string;
     fullname: string;
-    personId: string;
+    citizenId: string;
     role: string;
   }
 
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetch(`/api/users/get`, {
+    fetch(`/api/users/get/list`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -28,7 +29,9 @@ function UsersPage() {
 
       <div className={styles.user_div}>
         <input type="text" placeholder="Paieška..."></input>
-        <a>Sukurti vartotoją</a>
+        <Popup trigger={<button>Sukurti vartotoja</button>} modal nested>
+          {((close: any) => <AccountCreation close={close} />) as any}
+        </Popup>
       </div>
 
       <table className={styles.user_table}>
@@ -42,25 +45,24 @@ function UsersPage() {
             <th>Privilegijos</th>
           </tr>
         </thead>
-
-                <tbody>
-                {users.length > 0 && users.map(user => (
-                    <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.email}</td>
-                        <td>{user.telephone}</td>
-                        <td>{user.fullname}</td>
-                        <td>{user.personId}</td>
-                        <td>{user.role}</td>
-                    </tr>
-                )
-                )
-                }
+          <tbody>
+          {users.length > 0 && users.map(user => (
+              <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.email}</td>
+                  <td>{user.telephone}</td>
+                  <td>{user.fullname}</td>
+                  <td>{user.citizenId}</td>
+                  <td>{user.role}</td>
+              </tr>
+          )
+          )
+          }
 
           {users.length == 0 && (
-            <tr key={0}>
-              <td>Tuščia</td>
-            </tr>
+          <tr key={0}>
+            <td>Tuščia</td>
+          </tr>
           )}
         </tbody>
       </table>
