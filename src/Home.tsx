@@ -8,6 +8,7 @@ import CompanyProfiles from "./CompanyProfiles";
 import PhysicalCreation from "./PhysicalCreation";
 import PhysicalProfiles from "./PhysicalProfiles";
 import CompanyCreation from "./CompanyCreation";
+import InterestCalculator from "./InterestCalculator";
 
 function Home() {
   
@@ -27,10 +28,9 @@ function Home() {
             <span className={styles.link2}>Skaičiuoklės &gt;&gt;</span>
             <div className={styles.dropdown_content}>
               <Link to="/dashboard/Credit-Rating-Calculator">
-                Kredito Reitingo Skaičiuoklė
+                Paskolos Skaičiuoklė
               </Link>
-              <Link to="/dashboard/calc2">Skaičiuoklė2</Link>
-              <Link to="/dashboard/calc3">Skaičiuoklė3</Link>
+              <Link to="/dashboard/interest-calculator">Palūkanų Skaičiuoklė</Link>
             </div>
           </div>
           <Link to="/dashboard/profile" className={styles.link}>
@@ -52,14 +52,12 @@ function Home() {
             />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="users" element={<UsersPage />} />
-            <Route
-              path="Credit-Rating-Calculator"
-              element={<CreditRatingCalculator />}
-            />
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="create-juridical" element={<CompanyProfiles />} />
             <Route path="create-physical" element={<PhysicalCreation />} />
             <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
+            
+            <Route path="interest-calculator" element={<InterestCalculator />} />
             <Route path="physical-profile" element={<PhysicalProfiles />} />
             <Route path="juridical-profile" element={<CompanyCreation />} />
             
