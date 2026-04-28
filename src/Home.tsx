@@ -36,10 +36,10 @@ function Home() {
             </Link>
 
             <Link
-              to="/dashboard/Credit-Rating-Calculator"
-              className={`${styles.link} ${isActive("Credit-Rating-Calculator") ? styles.active : ""}`}
+              to="/dashboard/interest-calculator"
+              className={`${styles.link} ${isActive("interest-calculator") ? styles.active : ""}`}
             >
-              Kredito Reitingo Skaičiuoklė
+              Paskolos Skaičiuoklė
             </Link>
 
             <Link
@@ -78,7 +78,6 @@ function Home() {
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="create-juridical" element={<CompanyProfiles />} />
             <Route path="create-physical" element={<PhysicalCreation />} />
-
             <Route
               path="interest-calculator"
               element={<InterestCalculator />}
