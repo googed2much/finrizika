@@ -8,6 +8,7 @@ import CompanyProfiles from "./CompanyProfiles";
 import PhysicalCreation from "./PhysicalCreation";
 import PhysicalProfiles from "./PhysicalProfiles";
 import CompanyCreation from "./CompanyCreation";
+import InterestCalculator from "./InterestCalculator";
 
 function Home() {
   const location = useLocation();
@@ -24,57 +25,64 @@ function Home() {
     <>
       <div className={styles.dashboard_grid}>
         <div className={styles.dashboard_sidebar_div}>
-          <div className={styles.sidebar_seperator_div}> 
+          <div className={styles.sidebar_seperator_div}>
             <h1 className={styles.LogoText}>Finrizika</h1>
 
-            <Link 
-              to="/dashboard/portfolio" 
-              className={`${styles.link} ${isActive('portfolio') ? styles.active : ''}`}
+            <Link
+              to="/dashboard/portfolio"
+              className={`${styles.link} ${isActive("portfolio") ? styles.active : ""}`}
             >
-              Portfelis 
+              Portfelis
             </Link>
 
-            <Link 
-              to="/dashboard/Credit-Rating-Calculator" 
-              className={`${styles.link} ${isActive('Credit-Rating-Calculator') ? styles.active : ''}`}
+            <Link
+              to="/dashboard/Credit-Rating-Calculator"
+              className={`${styles.link} ${isActive("Credit-Rating-Calculator") ? styles.active : ""}`}
             >
               Kredito Reitingo Skaičiuoklė
             </Link>
 
-            <Link 
-              to="/dashboard/users" 
-              className={`${styles.link} ${isActive('users') ? styles.active : ''}`}
+            <Link
+              to="/dashboard/users"
+              className={`${styles.link} ${isActive("users") ? styles.active : ""}`}
             >
-              Vartotojai 
+              Vartotojai
             </Link>
-          </div> 
+          </div>
 
-          <div className={styles.sidebar_seperator_div}> 
-            <Link 
-              to="/dashboard/profile" 
-              className={`${styles.link} ${isActive('profile') ? styles.active : ''}`}
+          <div className={styles.sidebar_seperator_div}>
+            <Link
+              to="/dashboard/profile"
+              className={`${styles.link} ${isActive("profile") ? styles.active : ""}`}
             >
-              Profilis 
+              Profilis
             </Link>
 
-            <a 
-              className={`${styles.link} ${styles.danger}`} 
-              onClick={(e) => { e.preventDefault(); logout(); }}
+            <a
+              className={`${styles.link} ${styles.danger}`}
+              onClick={(e) => {
+                e.preventDefault();
+                logout();
+              }}
             >
               Atsijungti
             </a>
-          </div> 
-        </div> 
+          </div>
+        </div>
 
         <div className={styles.dashboard_content_div}>
           <Routes>
             <Route path="" element={<Navigate to="portfolio" replace />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="users" element={<UsersPage />} />
-            <Route path="Credit-Rating-Calculator" element={<CreditRatingCalculator />} />
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="create-juridical" element={<CompanyProfiles />} />
             <Route path="create-physical" element={<PhysicalCreation />} />
+
+            <Route
+              path="interest-calculator"
+              element={<InterestCalculator />}
+            />
             <Route path="physical-profile" element={<PhysicalProfiles />} />
             <Route path="juridical-profile" element={<CompanyCreation />} />
           </Routes>
