@@ -1,0 +1,263 @@
+/* ===== PAGE LAYOUT ===== */
+.page_wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  background-color: #f5f7fa;
+  box-sizing: border-box;
+}
+
+/* ===== CARD BASE ===== */
+.card {
+  background: #ffffff;
+  border: 2px solid #c3c6ca;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 7px #dbdfe4;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.card_title {
+  color: #494a4d;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #edf1f5;
+  text-shadow: 1px 1px 1px #c7c7c7;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #595a5e;
+  font-size: 0.95rem;
+}
+
+/* ===== FORM INPUTS ===== */
+.input {
+  padding: 0.7rem 0.8rem;
+  border: 2px solid #c3c6ca;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #000;
+  background-color: #fff;
+  min-width: 16rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0062ff;
+  box-shadow: 0 0 0 3px rgba(0, 98, 255, 0.15);
+}
+
+.input:disabled {
+  background-color: #edf1f5;
+  cursor: not-allowed;
+}
+
+.input::placeholder {
+  color: #a0a0a0;
+}
+
+/* ===== BUTTONS ===== */
+.button_primary {
+  padding: 0.7rem 1.2rem;
+  background-color: #0062ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.button_primary:hover {
+  background-color: #1871ff;
+}
+
+.button_primary:active {
+  transform: scale(0.98);
+}
+
+.button_primary:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button_secondary {
+  padding: 0.7rem 1.2rem;
+  background-color: #ffffff;
+  color: #595a5e;
+  border: 2px solid #c3c6ca;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.button_secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #a0a3a8;
+}
+
+.button_secondary:disabled {
+  background-color: #edf1f5;
+  color: #a0a3a8;
+  cursor: not-allowed;
+}
+
+/* ===== MESSAGES / ALERTS ===== */
+.message {
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  border: 2px solid;
+}
+
+.message_success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.message_error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.message_info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+/* ===== CONTROLS & ACTIONS ===== */
+.controls_div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ===== TABLES ===== */
+.table_container {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background-color: #edf1f5;
+  border-bottom: 2px solid #c3c6ca;
+}
+
+.table th {
+  padding: 1rem 0.8rem;
+  text-align: left;
+  font-weight: 600;
+  color: #595a5e;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.9rem 0.8rem;
+  color: #000;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.table tbody tr:hover {
+  background-color: #f3f5fa;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty_state {
+  padding: 2rem !important;
+  text-align: center;
+  color: #595a5e;
+  font-style: italic;
+}
+
+/* ===== BADGES ===== */
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.badge_administrator { background-color: #fee2e2; color: #991b1b; }
+.badge_investor { background-color: #d0e1ff; color: #1871ff; }
+.badge_moderator { background-color: #fef3c7; color: #92400e; }
+.badge_default { background-color: #e2e8f0; color: #475569; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .controls_div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .input {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .actions button {
+    width: 100%;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .card_title {
+    font-size: 1.5rem;
+  }
+}
