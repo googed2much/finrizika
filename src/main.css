@@ -1,6 +1,10 @@
-* {
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+}
+html, body {
+  height: 100%;
+  overflow: hidden; /* prevents the whole page from scrolling */
+  font-family: system-ui, -apple-system, sans-serif; /* optional */
 }

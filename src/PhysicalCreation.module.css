@@ -102,3 +102,30 @@
 .creationDiv2 button:hover{
     background:#3a78c2;
 }
+
+.errorMessage {
+  background: #fee;
+  color: #c00;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #fcc;
+  font-size: 0.9rem;
+}
+
+.required {
+  color: #c00;
+  margin-left: 2px;
+}
+
+button.submitting,
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: #ccc;
+}
+
+button.submitting:hover,
+button:disabled:hover {
+  background: #ccc;
+}

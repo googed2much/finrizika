@@ -1,3 +1,30 @@
+
+.pageContainer {
+  padding: 0 1rem 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.sectionTitle {
+  color: #595a5e;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.8rem 0;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid #c3c6ca;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 7px #dbdfe4;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px; 
+  box-sizing: border-box;
+}
+
+
 .card {
   background: #f9fafc;
   border: 2px solid #c3c6ca;
@@ -17,13 +44,6 @@
   text-align: center;
 }
 
-.sectionTitle {
-  color: #595a5e;
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin: 0 0 0.8rem 0;
-}
-
 .resultValue {
   color: #0062ff;
   font-size: 2rem;
@@ -36,6 +56,7 @@
   font-size: 1.1rem;
   margin: 0;
 }
+
 
 .formGrid {
   display: grid;
@@ -55,6 +76,7 @@
   font-size: 1rem;
   font-weight: 500;
 }
+
 
 .inputField {
   width: 100%;
@@ -84,6 +106,7 @@
   height: 24px;
 }
 
+
 .calculateButton {
   text-decoration: none;
   color: white;
@@ -96,6 +119,7 @@
   text-align: center;
   box-sizing: border-box;
   font-weight: 600;
+  
   background: #0062ff;
   border: none;
   cursor: pointer;
@@ -105,6 +129,29 @@
   background: #1871ff;
   color: white;
 }
+
+.chartContainer {
+  background: #edf1f5;
+  border: 2px solid #c3c6ca;
+  border-radius: 1rem;
+  box-shadow: 1px 0 7px #dbdfe4;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.chartTitle {
+  color: #595a5e;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.chartWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 
 .disclaimer {
   color: #6b7280;
@@ -116,10 +163,16 @@
   border-top: 1px dashed #c3c6ca;
 }
 
+
 @media (max-width: 768px) {
   .formGrid {
     grid-template-columns: 1fr;
   }
+  
+  .pageTitle {
+    font-size: 1.8rem;
+  }
+  
   .resultValue {
     font-size: 1.6rem;
   }
