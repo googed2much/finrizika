@@ -1,93 +1,172 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./CompanyProfiles.module.css";
+import g_styles from "./Components/general_style.module.css";
 
 function CompanyProfiles() {
   const { state } = useLocation();
-  const { id } = state;
+  const { id } = state || {};
+
+  if (!id)
+    return (
+      <div className={g_styles.page_wrapper}>
+        <p>Nėra pasirinktos įmonės</p>
+      </div>
+    );
+
   return (
-    <div className={styles.backgroundColor}>
-      <div className={styles.profileBox}>
-        <div className={styles.creationBackground}>
-          <h1>Juridinis Asmuo</h1>
-          <div className={styles.profileGrid}>
-            <div className={styles.profileBox}>
-              <EditProfile id={id} />
-            </div>
-            <div className={styles.profileBox}>
-              <Rating id={id} />
-            </div>
-            <div className={`${styles.profileBox} ${styles.fullWidth}`}>
-              <InputRatingInformation id={id} />
-            </div>
-            <div className={`${styles.profileBox} ${styles.fullWidth}`}>
-              <Documents id={id} />
-            </div>
+    <div className={g_styles.page_wrapper}>
+      <div className={g_styles.card}>
+        <h1 className={g_styles.card_title}>Juridinis Asmuo</h1>
+
+        <div className={styles.profileGrid}>
+          <div className={styles.card}>
+            <EditProfile id={id} />
+          </div>
+          <div className={styles.card}>
+            <Rating id={id} />
+          </div>
+          <div className={`${styles.card} ${styles.fullWidth}`}>
+            <InputRatingInformation id={id} />
+          </div>
+          <div className={`${styles.card} ${styles.fullWidth}`}>
+            <Documents id={id} />
           </div>
         </div>
       </div>
     </div>
   );
 }
-function Documents({ id }: any) {
-  console.log("company id :", id);
-  interface Document {
+
+function EditProfile({ id }: { id: number }) {
+  interface Profile {
     id: number;
-    filename: string;
-    originalName: string;
+    companyId: string;
+    name: string;
+    email: string;
+    telephone: string;
+    ownerFullname: string;
   }
-  const [documents, setDocuments] = useState<Document[]>([]);
+
+  const [company, setCompany] = useState<Profile>({
+    companyId: "",
+    name: "",
+    email: "",
+    telephone: "",
+    ownerFullname: "",
+    id: 0,
+  });
 
   useEffect(() => {
-    fetchDocuments();
-  }, []);
-  const fetchDocuments = async () => {
-    const res = await fetch(`/api/juridical/get/${id}/documents`);
-    if (res.ok) {
-      const data = await res.json();
-      setDocuments(data);
-    }
+    setCompany((prev) => ({ ...prev, id }));
+  }, [id]);
+
+  useEffect(() => {
+    fetch(`/api/juridical/get/${id}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => setCompany(data))
+      .catch(() => console.error("Nepavyko gauti įmonės"));
+  }, [id]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setCompany((prev) => ({ ...prev, [id]: value }));
   };
-  const uploadDocument = async (file: File) => {
-    const formData = new FormData();
-    formData.append("companyId", id.toString());
-    formData.append("file", file);
-    const res = await fetch("/api/juridical/upload/document", {
+
+  const saveData = async (e: FormEvent) => {
+    e.preventDefault();
+    const res = await fetch(`/api/juridical/update`, {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(company),
     });
-    if (res.ok) {
-      fetchDocuments();
-    }
+    res.ok ? alert("Duomenys išsaugoti") : alert("Nepavyko išsaugoti");
   };
-  const handleFileChange = (f: React.ChangeEvent<HTMLInputElement>) => {
-    const file = f.target.files?.[0];
-    if (file) uploadDocument(file);
-  };
+
   return (
     <>
-      <div>
-        <p className={styles.title}>Dokumentai</p>
-        <div className={styles.documentList}>
-          {documents.map((doc) => (
-            <div key={doc.id} className={styles.documentItem}>
-              <span>{doc.originalName}</span>
-              <a href={`/api/physical/get/document/${doc.id}`}>Atsiųsti</a>
-            </div>
-          ))}
-        </div>
-        <button>
-          <label>
-            Įkelti naują failą
-            <input type="file" hidden onChange={handleFileChange} />
+      <h2 className={styles.sectionTitle}>Profilis</h2>
+      <div className={styles.formGrid}>
+        <div className={styles.formGroup}>
+          <label className={styles.formLabel} htmlFor="companyId">
+            Įmonės kodas
           </label>
+          <input
+            className={styles.inputField}
+            id="companyId"
+            type="text"
+            value={company.companyId}
+            onChange={handleChange}
+            disabled
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.formLabel} htmlFor="name">
+            Įmonės pavadinimas
+          </label>
+          <input
+            className={styles.inputField}
+            id="name"
+            type="text"
+            value={company.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.formLabel} htmlFor="email">
+            El. paštas
+          </label>
+          <input
+            className={styles.inputField}
+            id="email"
+            type="email"
+            value={company.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.formLabel} htmlFor="telephone">
+            Telefono numeris
+          </label>
+          <input
+            className={styles.inputField}
+            id="telephone"
+            type="tel"
+            value={company.telephone}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+          <label className={styles.formLabel} htmlFor="ownerFullname">
+            Įmonės atstovo pilnas vardas
+          </label>
+          <input
+            className={styles.inputField}
+            id="ownerFullname"
+            type="text"
+            value={company.ownerFullname}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className={styles.buttonDiv}>
+        <button
+          className={styles.calculateButton}
+          onClick={saveData}
+          type="button"
+        >
+          Išsaugoti pakeitimus
+        </button>
+        <button className={styles.dangerButton} type="button">
+          Ištrinti
         </button>
       </div>
     </>
   );
 }
-function Rating({ id }: any) {
-  interface rating {
+
+function Rating({ id }: { id: number }) {
+  interface RatingData {
     totalScore: number;
     quickLiquidityRatio: number;
     interestCoverage: number;
@@ -96,7 +175,8 @@ function Rating({ id }: any) {
     changeInSalesRevenue: number;
     equityRatio: number;
   }
-  const [evalu, setEvalu] = useState<rating>({
+
+  const [evalu, setEvalu] = useState<RatingData>({
     totalScore: 0,
     quickLiquidityRatio: 0,
     interestCoverage: 0,
@@ -105,58 +185,61 @@ function Rating({ id }: any) {
     changeInSalesRevenue: 0,
     equityRatio: 0,
   });
+
+  const [grade, setGrade] = useState("-");
+  const [gradeInfo, setGradeInfo] = useState("-");
+
   const fetchRating = async () => {
-    const response = await fetch(`/api/juridical/get/${id}/scores`);
-    if (!response.ok) {
-      console.log("nepavyko gauti reitingo");
-      return;
+    const res = await fetch(`/api/juridical/get/${id}/scores`);
+    if (res.ok) {
+      const data = await res.json();
+      setEvalu(data);
     }
-    const data = await response.json();
-    setEvalu(data);
   };
-  useEffect(() => {
-    letterRating(evalu.totalScore);
-  }, [evalu.totalScore]);
+
   useEffect(() => {
     fetchRating();
   }, [id]);
-  const [grade, setGrade] = useState<String>("-");
-  const [gradeInfo, setGradeInfo] = useState<string>("-");
-  function letterRating(score: number) {
-    if (score >= 900) {
+
+  useEffect(() => {
+    const s = evalu.totalScore;
+    if (s >= 900) {
       setGrade("A");
       setGradeInfo("Labai aukštas patikimumas");
-    } else if (score >= 800) {
+    } else if (s >= 800) {
       setGrade("B");
       setGradeInfo("Aukštas patikimumas");
-    } else if (score >= 600) {
+    } else if (s >= 600) {
       setGrade("C");
       setGradeInfo("Vidutinis patikimumas");
-    } else if (score >= 400) {
+    } else if (s >= 400) {
       setGrade("D");
       setGradeInfo("Žemas patikimumas");
     } else {
       setGrade("E");
       setGradeInfo("Labai žemas patikimumas");
     }
-  }
+  }, [evalu.totalScore]);
+
   return (
-    <div className={styles.ratingContainer}>
-      <h2 className={styles.title}>Reitingas</h2>
-      <div className={styles.ratingSummary}>
-        <div className={styles.totalScore}>{evalu.totalScore.toFixed(2)}</div>
-        <div className={styles.gradeBlock}>
-          <div className={styles.ratingGrade}>{grade}</div>
-          <div className={styles.gradeInfo}>{gradeInfo}</div>
+    <>
+      <h2 className={styles.sectionTitle}>Reitingas</h2>
+      <div className={styles.resultsCard}>
+        <div className={styles.ratingSummary}>
+          <div className={styles.totalScore}>{evalu.totalScore.toFixed(2)}</div>
+          <div className={styles.gradeBlock}>
+            <div className={styles.ratingGrade}>{grade}</div>
+            <div className={styles.gradeInfo}>{gradeInfo}</div>
+          </div>
         </div>
       </div>
       <div className={styles.scoreBreakdown}>
         <div className={styles.scoreItem}>
-          <span>Greitas likvidumo Koeficientas </span>
+          <span>Greitas likvidumo koef.</span>
           <span>{evalu.quickLiquidityRatio}</span>
         </div>
         <div className={styles.scoreItem}>
-          <span>Palūkanų Padengimo </span>
+          <span>Palūkanų padengimas</span>
           <span>{evalu.interestCoverage}</span>
         </div>
         <div className={styles.scoreItem}>
@@ -168,402 +251,208 @@ function Rating({ id }: any) {
           <span>{evalu.netProfitability}</span>
         </div>
         <div className={styles.scoreItem}>
-          <span>Pardavimų pajamų pokytis </span>
+          <span>Pardavimų pajamų pokytis</span>
           <span>{evalu.changeInSalesRevenue}</span>
         </div>
         <div className={styles.scoreItem}>
-          <span>Nuosavybės koeficientas </span>
+          <span>Nuosavybės koeficientas</span>
           <span>{evalu.equityRatio}</span>
         </div>
       </div>
       <button
-        className={styles.recalculateBtn}
-        type="submit"
+        className={styles.calculateButton}
         onClick={fetchRating}
+        type="button"
       >
         Perskaičiuoti vertinimą
       </button>
-    </div>
+    </>
   );
 }
-function InputRatingInformation({ id }: any) {
-  interface ratingData {
+
+function InputRatingInformation({ id }: { id: number }) {
+  interface RatingData {
     shortTermAssets: number;
     inventory: number;
     shortTermLiabilities: number;
-
     equity: number;
     totalAssets: number;
-
     netProfit: number;
     interest: number;
     taxes: number;
-
     financialLiabilities: number;
     cash: number;
     depreciation: number;
     amortization: number;
-
     salesRevenueCurrent: number;
     salesRevenue1YearOld: number;
-
     companyId: number;
   }
 
-  const [companyData, setCompanyData] = useState<ratingData>({
+  const [companyData, setCompanyData] = useState<RatingData>({
     shortTermAssets: 0,
     inventory: 0,
     shortTermLiabilities: 0,
-
     equity: 0,
     totalAssets: 0,
-
     netProfit: 0,
     interest: 0,
     taxes: 0,
-
     financialLiabilities: 0,
     cash: 0,
     depreciation: 0,
     amortization: 0,
-
     salesRevenueCurrent: 0,
     salesRevenue1YearOld: 0,
     companyId: id,
   });
-  const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = c.target;
-    let finalValue: any = value;
-    setCompanyData({
-      ...companyData,
-      [id]: finalValue,
-    });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setCompanyData((prev) => ({
+      ...prev,
+      [id]: value === "" ? 0 : Number(value),
+    }));
   };
+
   useEffect(() => {
-    setCompanyData({
-      ...companyData,
-      companyId: id,
-    });
+    setCompanyData((prev) => ({ ...prev, companyId: id }));
+    fetch(`/api/juridical/get/data/${id}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => setCompanyData(data))
+      .catch(() => console.error("Nepavyko paimti finansinių duomenų"));
   }, [id]);
-  useEffect(() => {
-    fetchData();
-  }, [id]);
-  async function saveData(c: React.SubmitEvent) {
-    c.preventDefault();
-    const response = await fetch(`/api/juridical/update/data`, {
+
+  const saveData = async (e: FormEvent) => {
+    e.preventDefault();
+    const res = await fetch(`/api/juridical/update/data`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(companyData),
     });
-    if (!response.ok) {
-      console.error("Nepavyko updatinti juridinio vertinimo duomenu");
-      return;
-    }
-    console.log("company updatinta: duomenu id", response);
-    alert("Sėkmingai išsaugoti duomenys");
-    fetchData();
-  }
-  const fetchData = async () => {
-    const response = await fetch(`/api/juridical/get/data/${id}`);
-    if (!response.ok) {
-      console.error("nepavyko paimti juridinio finansiniu duomenu");
-      return;
-    }
-    const data = await response.json();
-    setCompanyData(data);
-    console.log("sekmingai paimti duomenys");
+    res.ok
+      ? alert("Sėkmingai išsaugoti duomenys")
+      : alert("Nepavyko išsaugoti");
   };
-  const readPdf = async (c: React.SubmitEvent) => {
-    c.preventDefault();
-    const response = await fetch(
+
+  const readPdf = async (e: FormEvent) => {
+    e.preventDefault();
+    const res = await fetch(
       `/api/juridical/read/data/${companyData.companyId}`,
     );
-    if (!response.ok) {
-      alert("Nepavyko nuskaityti dokumento");
-      return;
-    }
-    console.log("sėkmingai nuskaitytas dokas");
-    fetchData();
+    res.ok
+      ? (alert("Dokumentas nuskaitytas"), saveData(e))
+      : alert("Nepavyko nuskaityti dokumento");
   };
+
+  const fields = [
+    { id: "shortTermAssets", label: "Trumpalaikis turtas" },
+    { id: "inventory", label: "Atsargos" },
+    { id: "shortTermLiabilities", label: "Trumpalaikiai įsipareigojimai" },
+    { id: "equity", label: "Nuosavas kapitalas" },
+    { id: "totalAssets", label: "Visas turtas" },
+    { id: "netProfit", label: "Grynas pelnas" },
+    { id: "interest", label: "Palūkanos" },
+    { id: "taxes", label: "Sumokėti mokesčiai" },
+    { id: "depreciation", label: "Nusidėvėjimas" },
+    { id: "amortization", label: "Amortizacija" },
+    { id: "financialLiabilities", label: "Finansiniai įsipareigojimai" },
+    { id: "cash", label: "Grynieji pinigai" },
+    { id: "salesRevenueCurrent", label: "Pardavimų pajamos (naujausi metai)" },
+    { id: "salesRevenue1YearOld", label: "Pardavimų pajamos (praeiti metai)" },
+  ];
+
   return (
     <>
-      <p className={styles.title}>Finansiniai duomenys</p>
-      <form onSubmit={saveData}>
-        <label>
-          Trumpalaikis turtas
-          <input
-            id="shortTermAssets"
-            type="number"
-            value={companyData.shortTermAssets || ""}
-            onChange={handleChange}
-            placeholder="Trumpalaikis turtas"
-          />
-        </label>
-        <label>
-          Atsargos
-          <input
-            id="inventory"
-            type="number"
-            value={companyData.inventory || ""}
-            onChange={handleChange}
-            placeholder="Atsargos"
-          />
-        </label>
-        <label>
-          Trumpalaikiai įsipareigojimai
-          <input
-            id="shortTermLiabilities"
-            value={companyData.shortTermLiabilities || ""}
-            onChange={handleChange}
-            placeholder="Trumpalaikiai įsipareigojimai"
-          />
-        </label>
-
-        <label>
-          Nuosavas kapitalas
-          <input
-            id="equity"
-            type="number"
-            value={companyData.equity || ""}
-            onChange={handleChange}
-            placeholder="Nuosavas kapitalas"
-          />
-        </label>
-        <label>
-          Visas turtas
-          <input
-            id="totalAssets"
-            type="number"
-            value={companyData.totalAssets || ""}
-            onChange={handleChange}
-            placeholder="Visas turtas"
-          />
-        </label>
-
-        <label>
-          Grynas pelnas
-          <input
-            id="netProfit"
-            type="number"
-            value={companyData.netProfit || ""}
-            onChange={handleChange}
-            placeholder="Grynas pelnas"
-          />
-        </label>
-        <label>
-          Palūkanos
-          <input
-            id="interest"
-            type="number"
-            value={companyData.interest || ""}
-            onChange={handleChange}
-            placeholder="Palūkanos"
-          />
-        </label>
-        <label>
-          Sumokėti mokesčiai
-          <input
-            id="taxes"
-            type="number"
-            value={companyData.taxes || ""}
-            onChange={handleChange}
-            placeholder="Sumokėti mokesčiai"
-          />
-        </label>
-
-        <label>
-          Nusidėvėjimas
-          <input
-            id="depreciation"
-            type="number"
-            value={companyData.depreciation || ""}
-            onChange={handleChange}
-            placeholder="Nusidėvėjimas"
-          />
-        </label>
-        <label>
-          Amortizacija
-          <input
-            id="amortization"
-            type="number"
-            value={companyData.amortization || ""}
-            onChange={handleChange}
-            placeholder="Amortizacija"
-          />
-        </label>
-        <label>
-          Finansiniai įsipareigojimai
-          <input
-            id="financialLiabilities"
-            type="number"
-            value={companyData.financialLiabilities || ""}
-            onChange={handleChange}
-            placeholder="Finansiniai įsipareigojimai"
-          />
-        </label>
-        <label>
-          Grynieji pinigai
-          <input
-            id="cash"
-            type="number"
-            value={companyData.cash || ""}
-            onChange={handleChange}
-            placeholder="Grynieji pinigai"
-          />
-        </label>
-
-        <label>
-          Pardavimų pajamos naujausių metų
-          <input
-            id="salesRevenueCurrent"
-            type="number"
-            value={companyData.salesRevenueCurrent || ""}
-            onChange={handleChange}
-            placeholder="Pardavimų pajamos naujausių metų"
-          />
-        </label>
-        <label>
-          Pardavimų pajamos praeitais metais
-          <input
-            id="salesRevenue1YearOld"
-            type="number"
-            value={companyData.salesRevenue1YearOld || ""}
-            onChange={handleChange}
-            placeholder="Pardavimų pajamos praeitais metais"
-          />
-        </label>
-        <button type="submit">Išsaugoti</button>
+      <h2 className={styles.sectionTitle}>Finansiniai duomenys</h2>
+      <form onSubmit={saveData} className={styles.formGrid}>
+        {fields.map((f) => (
+          <div className={styles.formGroup} key={f.id}>
+            <label className={styles.formLabel} htmlFor={f.id}>
+              {f.label}
+            </label>
+            <input
+              className={styles.inputField}
+              id={f.id}
+              type="number"
+              value={companyData[f.id as keyof RatingData] || ""}
+              onChange={handleChange}
+              placeholder={f.label}
+            />
+          </div>
+        ))}
+        <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+          <button type="submit" className={styles.calculateButton}>
+            Išsaugoti
+          </button>
+        </div>
       </form>
-      <form className={styles.buttonDiv} onSubmit={readPdf}>
-        <button className={styles.fullWidth} type="submit">
+      <form onSubmit={readPdf} style={{ marginTop: "1rem" }}>
+        <button type="submit" className={styles.secondaryButton}>
           Nuskaityti duomenis iš dokumento
         </button>
       </form>
     </>
   );
 }
-function EditProfile({ id }: any) {
-  interface profile {
+
+function Documents({ id }: { id: number }) {
+  interface Doc {
     id: number;
-    companyId: string;
-    name: string;
-    email: string;
-    telephone: string;
-    ownerFullname: string;
+    filename: string;
+    originalName: string;
   }
-  const [company, setCompany] = useState<profile>({
-    companyId: "",
-    name: "",
-    email: "",
-    telephone: "",
-    ownerFullname: "",
-    id: 0,
-  });
+  const [documents, setDocuments] = useState<Doc[]>([]);
+
+  const fetchDocuments = async () => {
+    const res = await fetch(`/api/juridical/get/${id}/documents`);
+    if (res.ok) setDocuments(await res.json());
+  };
+
   useEffect(() => {
-    setCompany((prev) => ({
-      ...prev,
-      id: id,
-    }));
+    fetchDocuments();
   }, [id]);
-  const fetchCompany = async () => {
-    const response = await fetch(`/api/juridical/get/${id}`);
-    if (!response.ok) {
-      console.error("Nepavyko gauti imones");
-      return;
-    }
-    const data = await response.json();
-    setCompany(data);
-  };
-  const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value, type } = c.target;
-    let finalValue: any = value;
-    if (type === "text") {
-      finalValue = String(value);
-    }
-    setCompany({
-      ...company,
-      [id]: finalValue,
-    });
-  };
-  async function saveData(e: React.MouseEvent) {
-    e.preventDefault();
-    const response = await fetch(`/api/juridical/update`, {
+
+  const uploadDocument = async (file: File) => {
+    const formData = new FormData();
+    formData.append("companyId", id.toString());
+    formData.append("file", file);
+    const res = await fetch("/api/juridical/upload/document", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(company),
+      body: formData,
     });
-    if (!response.ok) {
-      alert("nepavyko išsaugoti naujų duomenų");
-      return;
-    }
-    alert("duomenys išsaugoti");
-    fetchCompany();
-  }
-  useEffect(() => {
-    fetchCompany();
-  }, [id]);
-  async function deleteProfile() {}
+    if (res.ok) fetchDocuments();
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) uploadDocument(file);
+  };
+
   return (
     <>
-      <h1 className={styles.title}>Profilis</h1>
-      <div className={styles.profileOptions}>
-        <div>
-          <label>Įmonės kodas</label>
-          <input
-            id="companyId"
-            type="text"
-            value={company.companyId}
-            onChange={handleChange}
-            disabled
-          />
-        </div>
-
-        <div>
-          <label>Įmonės pavadinimas</label>
-          <input
-            id="name"
-            type="text"
-            value={company.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>El.paštas</label>
-          <input
-            id="email"
-            type="text"
-            value={company.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Įmonės atstovo telefono numeris</label>
-          <input
-            id="telephone"
-            type="text"
-            value={company.telephone}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Įmonės atstovo pilnas vardas</label>
-          <input
-            id="ownerFullname"
-            type="text"
-            value={company.ownerFullname}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={styles.buttonDiv}>
-          <button onClick={saveData}>Išsaugoti pakeitimus</button>
-          <button onClick={deleteProfile}>Ištrinti</button>
-        </div>
+      <h2 className={styles.sectionTitle}>Dokumentai</h2>
+      <div className={styles.documentList}>
+        {documents.map((doc) => (
+          <div key={doc.id} className={styles.documentItem}>
+            <span>{doc.originalName}</span>
+            <a
+              href={`/api/physical/get/document/${doc.id}`}
+              className={styles.downloadLink}
+            >
+              Atsiųsti
+            </a>
+          </div>
+        ))}
       </div>
+      <button className={styles.calculateButton} style={{ marginTop: "1rem" }}>
+        <label style={{ cursor: "inherit" }}>
+          Įkelti naują failą
+          <input type="file" hidden onChange={handleFileChange} />
+        </label>
+      </button>
     </>
   );
 }
+
 export default CompanyProfiles;
