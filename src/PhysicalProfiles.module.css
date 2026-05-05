@@ -5,19 +5,17 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Page title */
 .backgroundColor h1 {
     margin-bottom: 25px;
 }
 
-/* Grid layout */
 .profileGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px;
 }
 
-/* Card container */
+
 .profileBox {
     background: white;
     padding: 20px;
@@ -25,19 +23,19 @@
     box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
 }
 
-/* Full width sections */
+
 .fullWidth {
     grid-column: span 2;
 }
 
-/* Section titles */
+
 .title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 15px;
 }
 
-/* Profile form layout */
+
 .profileOptions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -49,7 +47,7 @@
     color: #555;
 }
 
-/* Inputs */
+
 .creationBackground input,
 select {
     width: 100%;
@@ -66,7 +64,7 @@ select:focus {
     border-color: #2a7cff;
 }
 
-/* Buttons */
+
 .creationBackground button {
     padding: 8px 14px;
     border: none;
@@ -81,7 +79,7 @@ select:focus {
     background: #1f63cc;
 }
 
-/* Button container */
+
 .buttonDiv {
     grid-column: span 2;
     margin-top: 10px;
@@ -89,7 +87,7 @@ select:focus {
     gap: 10px;
 }
 
-/* Tables */
+
 .creationBackground table {
     width: 100%;
     border-collapse: collapse;
@@ -114,19 +112,18 @@ select:focus {
     background: #fafafa;
 }
 
-/* Forms under tables */
 .creationBackground form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-/* Make form button full width */
+
 .creationBackground form button {
     grid-column: span 3;
 }
 
-/* Document list */
+
 .documentList {
     display: flex;
     flex-direction: column;
@@ -146,7 +143,7 @@ select:focus {
     color: #2a7cff;
 }
 
-/* Rating style */
+
 .ratingScore {
     font-size: 42px;
     font-weight: bold;

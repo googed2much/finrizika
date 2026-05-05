@@ -8,6 +8,7 @@ import PhysicalCreation from "./PhysicalCreation";
 import PhysicalProfiles from "./PhysicalProfiles";
 import CompanyCreation from "./CompanyCreation";
 import InterestCalculator from "./InterestCalculator";
+import CreditRatingCalculator from "./CreditRating";
 
 function Home() {
   const location = useLocation();
@@ -24,31 +25,47 @@ function Home() {
       <div className={styles.dashboard_grid}>
         <div className={styles.dashboard_sidebar_div}>
           <div className={styles.sidebar_seperator_div}>
-            <h1 className={styles.LogoText}>Finrizika</h1>
+            <div>
+              <h1 className={styles.LogoText}>Finrizika</h1>
 
-            <Link
-              to="/dashboard/portfolio"
-              className={`${styles.link} ${isActive("portfolio") ? styles.active : ""}`}
-            >
-              Portfelis
-            </Link>
+              <Link
+                to="/dashboard/portfolio"
+                className={`${styles.link} ${isActive("portfolio") ? styles.active : ""}`}
+              >
+                Portfelis
+              </Link>
 
-            <Link
-              to="/dashboard/interest-calculator"
-              className={`${styles.link} ${isActive("interest-calculator") ? styles.active : ""}`}
-            >
-              Paskolos Skaičiuoklė
-            </Link>
+              <Link
+                to="/dashboard/users"
+                className={`${styles.link} ${isActive("users") ? styles.active : ""}`}
+              >
+                Vartotojai
+              </Link>
+            </div>
 
-            <Link
-              to="/dashboard/users"
-              className={`${styles.link} ${isActive("users") ? styles.active : ""}`}
-            >
-              Vartotojai
-            </Link>
+            <div className={styles.sidebar_divider} />
+
+            <div className={styles.sidebar_seperator_div}>
+              <h2 className={styles.sidebar_section_title}>Skaiciuoklės</h2>
+
+              <Link
+                to="/dashboard/credit-rating-calculator"
+                className={`${styles.link} ${isActive("credit-rating-calculator") ? styles.active : ""}`}
+              >
+                Credito reitingas
+              </Link>
+
+              <Link
+                to="/dashboard/interest-calculator"
+                className={`${styles.link} ${isActive("interest-calculator") ? styles.active : ""}`}
+              >
+                Paskola
+              </Link>
+            </div>
           </div>
 
           <div className={styles.sidebar_seperator_div}>
+            <div className={styles.sidebar_divider} />
             <Link
               to="/dashboard/profile"
               className={`${styles.link} ${isActive("profile") ? styles.active : ""}`}
@@ -79,6 +96,10 @@ function Home() {
             <Route
               path="interest-calculator"
               element={<InterestCalculator />}
+            />
+            <Route
+              path="credit-rating-calculator"
+              element={<CreditRatingCalculator />}
             />
             <Route path="physical-profile" element={<PhysicalProfiles />} />
             <Route path="juridical-profile" element={<CompanyProfiles />} />

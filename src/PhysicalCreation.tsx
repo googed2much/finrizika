@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./PhysicalCreation.module.css";
 
-// 👇 Add onSuccess to props interface
 interface Props {
   onSuccess?: () => void;
 }
@@ -57,7 +56,6 @@ function PhysicalCreation({ onSuccess }: Props) {
   };
 
   async function saveProfile() {
-    // Basic validation
     if (
       !personProfile.citizenId ||
       !personProfile.fullname ||
@@ -88,7 +86,6 @@ function PhysicalCreation({ onSuccess }: Props) {
       const data = await response.json();
       console.log("SAVED ID:", data.id);
 
-      // 🔑 SUCCESS: Reset form + notify parent to refresh list & close modal
       setPersonProfile({
         citizenId: "",
         fullname: "",
@@ -103,7 +100,7 @@ function PhysicalCreation({ onSuccess }: Props) {
         homeStatus: "NONE",
       });
 
-      onSuccess?.(); // ← Triggers refresh in Portfolio.tsx
+      onSuccess?.();
     } catch (err) {
       console.error("Klaida saugant profilį:", err);
       setError(
