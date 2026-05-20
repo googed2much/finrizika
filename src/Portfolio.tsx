@@ -154,6 +154,13 @@ function PhysicalIndividual({
         >
           + Sukurti naują profilį
         </button>
+        <button
+            onClick={() => navigate("/dashboard/physical-analysis")}
+            className={g_styles.button_primary}
+            type="button"
+          >
+            Portfelio Analizė
+          </button>
       </div>
 
       {isLoading && (
@@ -330,7 +337,14 @@ function JuridicalIndividual({
         >
           + Sukurti naują profilį
         </button>
-      </div>
+          <button
+            onClick={() => navigate("/dashboard/juridical-analysis")}
+            className={g_styles.button_primary}
+            type="button"
+          >
+            Portfelio Analizė
+          </button>
+        </div>
 
       {isLoading && (
         <div className={`${g_styles.message} ${g_styles.message_info}`}>

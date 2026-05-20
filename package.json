@@ -10,9 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nivo/bar": "^0.99.0",
+    "@nivo/boxplot": "^0.99.0",
+    "@nivo/heatmap": "^0.99.0",
+    "@nivo/line": "^0.99.0",
+    "@nivo/parallel-coordinates": "^0.99.0",
+    "@nivo/treemap": "^0.99.0",
     "dotenv": "^17.3.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-heatmap-grid": "^0.9.1",
     "react-router-dom": "^7.13.0",
     "reactjs-popup": "^2.0.6",
     "recharts": "^3.8.1",
