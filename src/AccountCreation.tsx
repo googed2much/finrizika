@@ -1,7 +1,13 @@
 import { useState } from "react";
 import styles from "./AccountCreation.module.css";
 
-function AccountCreation({ close }: { close: () => void }) {
+function AccountCreation({
+  close,
+  onCreated,
+}: {
+  close: () => void;
+  onCreated?: () => void;
+}) {
   interface NewUser {
     email: string;
     password: string;
@@ -63,6 +69,7 @@ function AccountCreation({ close }: { close: () => void }) {
 
       if (response.ok) {
         alert("Naudotojas sėkmingai sukurtas!");
+        onCreated?.();
         close();
       } else {
         const errorData = await response.json().catch(() => null);

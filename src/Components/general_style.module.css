@@ -70,12 +70,12 @@
 
 /* ===== BUTTONS ===== */
 .button_primary {
-  padding: 0.7rem 1.2rem;
+  padding: 0.7rem 1rem;
   background-color: #0062ff;
   color: #ffffff;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -83,7 +83,7 @@
 }
 
 .button_primary:hover {
-  background-color: #1871ff;
+  background-color: #0a55cf;
 }
 
 .button_primary:active {

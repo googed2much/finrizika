@@ -7,24 +7,33 @@
   max-width: 1600px;
   align-items: start;
 }
+
+.dashboard p{
+  color: #47484b;
+}
+
+.dashboard h3, h2, h4, h5{
+  color: #383a3f;
+}
+
+
 .page_wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.01rem 1rem 2rem;
+  padding: 2rem 4rem 2rem;
   background-color: #f5f7fa;
   box-sizing: border-box;
 }
 .card {
-  background: white;
+  background: #f9fafc;
   border: 2px solid #c3c6ca;
   border-radius: 1rem;
-  box-shadow: 1px 1px 7px #dbdfe4;
+  box-shadow: 1px 0 3px #dbdfe4;
   padding: 1rem;
-  box-sizing: border-box;
-  overflow: hidden;
+  margin-top: 0.5rem;
 }
 .card_title {
   color: #494a4d;
@@ -36,13 +45,13 @@
   text-shadow: 1px 1px 1px #c7c7c7;
 }
 .heatmapCard {
-  height: 420px;
+  height: 450px;
   grid-column: 1;
   grid-row: 1;
 }
 
 .treemapCard {
-  height: 420px;
+  height: 450px;
   grid-column: 2;
   grid-row: 1;
 }
@@ -53,6 +62,7 @@
 }
 
 .textCard {
+  /* color: #494a4d; */
   grid-column: 1 / span 2;
   grid-row: 2;
 }

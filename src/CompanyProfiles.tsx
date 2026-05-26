@@ -3,7 +3,14 @@ import { useLocation } from "react-router-dom";
 import styles from "./CompanyProfiles.module.css";
 import g_styles from "./Components/general_style.module.css";
 import {
-  ResponsiveContainer,BarChart,Bar,XAxis,YAxis,Tooltip,Cell,} from "recharts";
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Cell,
+} from "recharts";
 function CompanyProfiles() {
   const { state } = useLocation();
   const { id } = state || {};
@@ -192,7 +199,7 @@ function Rating({ id }: { id: number }) {
     netProfitability: 0,
     changeInSalesRevenue: 0,
     equityRatio: 0,
-    
+
     quickLiquidityPoints: 0,
     equityRatioPoints: 0,
     interestCoveragePoints: 0,
@@ -312,12 +319,12 @@ function Rating({ id }: { id: number }) {
                   key={`cell-${index}`}
                   fill={
                     entry.value >= 140
-                      ? "#22c55e"
+                      ? "#bfd4f7"
                       : entry.value >= 100
-                      ? "#84cc16"
-                      : entry.value >= 50
-                      ? "#f59e0b"
-                      : "#ef4444"
+                        ? "#909fb9"
+                        : entry.value >= 50
+                          ? "#bea784"
+                          : "#cc7f7f"
                   }
                 />
               ))}
