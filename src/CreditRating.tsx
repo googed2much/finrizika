@@ -32,9 +32,13 @@ function CreditRatingCalculator() {
           Math.pow(1 + inputData.interest / 12, -inputData.timeInYears * 12))) /
       (inputData.interest / 12);
 
-    setDebtDisplay(
-      `${Math.round(maxDebt).toLocaleString("en").replaceAll(",", " ")}€`,
-    );
+    if (maxDebt < 0) {
+      setDebtDisplay(`0€`);
+    } else {
+      setDebtDisplay(
+        `${Math.round(maxDebt).toLocaleString("en").replaceAll(",", " ")}€`,
+      );
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
