@@ -81,6 +81,7 @@ function UsersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -104,7 +105,7 @@ function UsersPage() {
     };
 
     loadData();
-  }, []);
+  }, [refreshKey]);
 
   const filteredUsers = users.filter(
     (user) =>
@@ -141,7 +142,12 @@ function UsersPage() {
                 nested
                 overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
               >
-                {(close: any) => <AccountCreation close={close}/>}
+                {(close: any) => (
+                  <AccountCreation
+                    close={close}
+                    onCreated={() => setRefreshKey((k) => k + 1)}
+                  />
+                )}
               </Popup>
             </div>
 

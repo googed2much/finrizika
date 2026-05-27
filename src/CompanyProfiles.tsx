@@ -2,7 +2,15 @@ import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./CompanyProfiles.module.css";
 import g_styles from "./Components/general_style.module.css";
-
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Cell,
+} from "recharts";
 function CompanyProfiles() {
   const { state } = useLocation();
   const { id } = state || {};
@@ -174,6 +182,13 @@ function Rating({ id }: { id: number }) {
     netProfitability: number;
     changeInSalesRevenue: number;
     equityRatio: number;
+
+    quickLiquidityPoints: number;
+    equityRatioPoints: number;
+    interestCoveragePoints: number;
+    netDebtRatioPoints: number;
+    netProfitabilityPoints: number;
+    salesRevenuePoints: number;
   }
 
   const [evalu, setEvalu] = useState<RatingData>({
@@ -184,8 +199,40 @@ function Rating({ id }: { id: number }) {
     netProfitability: 0,
     changeInSalesRevenue: 0,
     equityRatio: 0,
-  });
 
+    quickLiquidityPoints: 0,
+    equityRatioPoints: 0,
+    interestCoveragePoints: 0,
+    netDebtRatioPoints: 0,
+    netProfitabilityPoints: 0,
+    salesRevenuePoints: 0,
+  });
+  const waterfallData = [
+    {
+      name: "Likvidumas",
+      value: evalu.quickLiquidityPoints,
+    },
+    {
+      name: "Nuosavybė",
+      value: evalu.equityRatioPoints,
+    },
+    {
+      name: "Palūkanos",
+      value: evalu.interestCoveragePoints,
+    },
+    {
+      name: "Skolos",
+      value: evalu.netDebtRatioPoints,
+    },
+    {
+      name: "Pelningumas",
+      value: evalu.netProfitabilityPoints,
+    },
+    {
+      name: "Pajamos",
+      value: evalu.salesRevenuePoints,
+    },
+  ];
   const [grade, setGrade] = useState("-");
   const [gradeInfo, setGradeInfo] = useState("-");
 
@@ -258,6 +305,32 @@ function Rating({ id }: { id: number }) {
           <span>Nuosavybės koeficientas</span>
           <span>{evalu.equityRatio}</span>
         </div>
+      </div>
+      <div style={{ width: "100%", height: 220, marginTop: "20px" }}>
+        <ResponsiveContainer>
+          <BarChart data={waterfallData}>
+            <XAxis dataKey="name" />
+            <YAxis domain={[0, 170]} />
+            <Tooltip />
+
+            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              {waterfallData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={
+                    entry.value >= 140
+                      ? "#bfd4f7"
+                      : entry.value >= 100
+                        ? "#909fb9"
+                        : entry.value >= 50
+                          ? "#bea784"
+                          : "#cc7f7f"
+                  }
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
       <button
         className={styles.calculateButton}

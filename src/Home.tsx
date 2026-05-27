@@ -9,6 +9,8 @@ import PhysicalProfiles from "./PhysicalProfiles";
 import CompanyCreation from "./CompanyCreation";
 import InterestCalculator from "./InterestCalculator";
 import CreditRatingCalculator from "./CreditRating";
+import JuridicalPortfolioAnalysis from "./JuridicalAnalysis";
+import PhysicalPortfolioAnalysis from "./PhysicalAnalysis";
 
 function Home() {
   const location = useLocation();
@@ -46,20 +48,20 @@ function Home() {
             <div className={styles.sidebar_divider} />
 
             <div className={styles.sidebar_seperator_div}>
-              <h2 className={styles.sidebar_section_title}>Skaiciuoklės</h2>
+              <h2 className={styles.sidebar_section_title}>Skaičiuoklės</h2>
 
               <Link
                 to="/dashboard/credit-rating-calculator"
                 className={`${styles.link} ${isActive("credit-rating-calculator") ? styles.active : ""}`}
               >
-                Credito reitingas
+                Paskolos reitingas
               </Link>
 
               <Link
                 to="/dashboard/interest-calculator"
                 className={`${styles.link} ${isActive("interest-calculator") ? styles.active : ""}`}
               >
-                Paskola
+                Palūkanų
               </Link>
             </div>
           </div>
@@ -103,6 +105,9 @@ function Home() {
             />
             <Route path="physical-profile" element={<PhysicalProfiles />} />
             <Route path="juridical-profile" element={<CompanyProfiles />} />
+            <Route path="juridical-analysis" element={<JuridicalPortfolioAnalysis/>}/>
+            
+            <Route path="physical-analysis" element={<PhysicalPortfolioAnalysis/>}/>
           </Routes>
         </div>
       </div>

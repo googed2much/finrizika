@@ -1,0 +1,141 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 0.825fr 0.825fr 1.65fr;
+  grid-template-rows: auto auto; 
+  gap: 16px;
+  width: 100%;
+  max-width: 1600px;
+  align-items: start;
+}
+
+.dashboard p{
+  color: #47484b;
+}
+
+.dashboard h3, h2, h4, h5{
+  color: #383a3f;
+}
+
+
+.page_wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem 4rem 2rem;
+  background-color: #f5f7fa;
+  box-sizing: border-box;
+}
+.card {
+  background: #f9fafc;
+  border: 2px solid #c3c6ca;
+  border-radius: 1rem;
+  box-shadow: 1px 0 3px #dbdfe4;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+.card_title {
+  color: #494a4d;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #edf1f5;
+  text-shadow: 1px 1px 1px #c7c7c7;
+}
+.heatmapCard {
+  height: 450px;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.treemapCard {
+  height: 450px;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sidePanelCard {
+  grid-column: 3;
+  grid-row: 1 / span 5;
+}
+
+.textCard {
+  /* color: #494a4d; */
+  grid-column: 1 / span 2;
+  grid-row: 2;
+}
+.totalScoreCard {
+  grid-column: 1 / span 2;
+  grid-row: 4;
+}
+.barCard {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+.smallChart {
+  height: 220px;
+}
+
+.fullWidth {
+  grid-column: 1 / span 2;
+}
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.attributeRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background: white;
+  border: 2px solid #c3c6ca;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 1px 1px 7px #dbdfe4;
+}
+
+.attributeCharts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.chartBox {
+  height: 220px;
+  min-width: 0;
+}
+.chartScoreBox {
+  height: 300px;
+  min-width: 0;
+}
+.statsTableWrapper {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.statsTable th,
+.statsTable td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.statsTable th {
+    background-color: #f3f3f3;
+    font-weight: 600;
+}
+
+.statsTable tr:nth-child(even) {
+    background-color: #fafafa;
+}

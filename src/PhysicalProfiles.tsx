@@ -2,6 +2,15 @@ import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./PhysicalProfiles.module.css";
 import g_styles from "./Components/general_style.module.css";
+import {
+  ResponsiveContainer,
+  BarChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Bar,
+  Cell,
+} from "recharts";
 
 function PhysicalProfiles() {
   const { state } = useLocation();
@@ -238,6 +247,24 @@ function Rating({ personId }: { personId: number }) {
     latenessScore: 0,
     dtiScore: 0,
   });
+  const waterfallData = [
+    {
+      name: "Darbingumas",
+      value: evalu.lengthScore,
+    },
+    {
+      name: "Alga",
+      value: evalu.salaryScore,
+    },
+    {
+      name: "Vėlavimai",
+      value: evalu.latenessScore,
+    },
+    {
+      name: "DTI",
+      value: evalu.dtiScore,
+    },
+  ];
   const [grade, setGrade] = useState("-");
   const [gradeInfo, setGradeInfo] = useState("-");
 
@@ -298,6 +325,32 @@ function Rating({ personId }: { personId: number }) {
           <span>Darbingumas</span>
           <span>{evalu.lengthScore}</span>
         </div>
+      </div>
+      <div style={{ width: "100%", height: 220, marginTop: "20px" }}>
+        <ResponsiveContainer>
+          <BarChart data={waterfallData}>
+            <XAxis dataKey="name" />
+            <YAxis domain={[0, 45]} />
+            <Tooltip />
+
+            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              {waterfallData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={
+                    entry.value >= 25
+                      ? "#bfd4f7"
+                      : entry.value >= 10
+                        ? "#909fb9"
+                        : entry.value >= 5
+                          ? "#bea784"
+                          : "#cc7f7f"
+                  }
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
       <button
         className={styles.calculateButton}
