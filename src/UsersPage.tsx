@@ -142,12 +142,12 @@ function UsersPage() {
                 nested
                 overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
               >
-                {(close: any) => (
+                {((close: any) => (
                   <AccountCreation
                     close={close}
                     onCreated={() => setRefreshKey((k) => k + 1)}
                   />
-                )}
+                )) as any}
               </Popup>
             </div>
 
