@@ -141,7 +141,7 @@ function UsersPage() {
                 nested
                 overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
               >
-                {(close: any) => <AccountCreation close={close} />}
+                {(close: any) => <AccountCreation close={close}/>}
               </Popup>
             </div>
 
