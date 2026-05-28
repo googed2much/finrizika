@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { ResponsiveTreeMap } from "@nivo/treemap";
 import { ResponsiveBar } from "@nivo/bar";

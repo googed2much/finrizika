@@ -15,7 +15,7 @@ import PhysicalPortfolioAnalysis from "./PhysicalAnalysis";
 function Home() {
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === `/dashboard/${path}`;
+  const isActive = (path: string) => location.pathname === `/dashboard/${path}`;
 
   async function logout() {
     await fetch(`/api/users/logout`);
@@ -105,9 +105,15 @@ function Home() {
             />
             <Route path="physical-profile" element={<PhysicalProfiles />} />
             <Route path="juridical-profile" element={<CompanyProfiles />} />
-            <Route path="juridical-analysis" element={<JuridicalPortfolioAnalysis/>}/>
-            
-            <Route path="physical-analysis" element={<PhysicalPortfolioAnalysis/>}/>
+            <Route
+              path="juridical-analysis"
+              element={<JuridicalPortfolioAnalysis />}
+            />
+
+            <Route
+              path="physical-analysis"
+              element={<PhysicalPortfolioAnalysis />}
+            />
           </Routes>
         </div>
       </div>

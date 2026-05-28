@@ -5,7 +5,6 @@ import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsiveBoxPlot } from "@nivo/boxplot";
 import styles from "./PhysicalAnalysis.module.css";
-import g_styles from "./Components/general_style.module.css";
 
 function PhysicalPortfolioAnalysis() {
   interface RatingData {

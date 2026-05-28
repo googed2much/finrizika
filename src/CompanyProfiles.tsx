@@ -1,4 +1,5 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./CompanyProfiles.module.css";
 import g_styles from "./Components/general_style.module.css";
