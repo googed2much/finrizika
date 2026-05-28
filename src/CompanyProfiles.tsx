@@ -375,7 +375,7 @@ function InputRatingInformation({ id }: { id: number }) {
     cash: 0,
     depreciation: 0,
     amortization: 0,
-    salesRevenueCurrent: 0,
+    salesRevenueCurrent: 0, // this
     salesRevenue1YearOld: 0,
     companyId: id,
   });
