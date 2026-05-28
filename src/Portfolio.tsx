@@ -234,7 +234,7 @@ function PhysicalIndividual({
             ← Ankstesnis
           </button>
           <span className={styles.pageInfo}>
-            Puslapis {page + 1} iš {lastPage + 1}
+            Puslapis {page + 1} iš {lastPage+1}
           </span>
           <button
             className={g_styles.button_secondary}
@@ -419,7 +419,7 @@ function JuridicalIndividual({
             ← Ankstesnis
           </button>
           <span className={styles.pageInfo}>
-            Puslapis {page + 1} iš {lastPage + 1}
+            Puslapis {page+1} iš {lastPage+1}
           </span>
           <button
             className={g_styles.button_secondary}

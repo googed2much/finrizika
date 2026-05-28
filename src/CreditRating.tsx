@@ -52,7 +52,7 @@ function CreditRatingCalculator() {
   return (
     <div className={g_styles.page_wrapper}>
       <div className={g_styles.card}>
-        <h1 className={g_styles.card_title}>Credito reitingo skaičiuoklė</h1>
+        <h1 className={g_styles.card_title}>Paskolos skaičiuoklė</h1>
 
         {debtDisplay && (
           <div className={styles.resultsCard}>

@@ -54,7 +54,7 @@ function Home() {
                 to="/dashboard/credit-rating-calculator"
                 className={`${styles.link} ${isActive("credit-rating-calculator") ? styles.active : ""}`}
               >
-                Paskolos reitingas
+                Paskolos
               </Link>
 
               <Link

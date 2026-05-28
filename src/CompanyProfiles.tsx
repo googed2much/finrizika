@@ -389,13 +389,15 @@ function InputRatingInformation({ id }: { id: number }) {
   };
 
   useEffect(() => {
+    fetchData();
+  }, [id]);
+  function fetchData(){
     setCompanyData((prev) => ({ ...prev, companyId: id }));
     fetch(`/api/juridical/get/data/${id}`)
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => setCompanyData(data))
       .catch(() => console.error("Nepavyko paimti finansinių duomenų"));
-  }, [id]);
-
+  }
   const saveData = async (e: FormEvent) => {
     e.preventDefault();
     const res = await fetch(`/api/juridical/update/data`, {
@@ -414,7 +416,7 @@ function InputRatingInformation({ id }: { id: number }) {
       `/api/juridical/read/data/${companyData.companyId}`,
     );
     res.ok
-      ? (alert("Dokumentas nuskaitytas"), saveData(e))
+      ? (alert("Dokumentas nuskaitytas"), fetchData())
       : alert("Nepavyko nuskaityti dokumento");
   };
 

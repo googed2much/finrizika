@@ -831,6 +831,15 @@ function Documents({ personId }: { personId: number }) {
     });
     if (res.ok) fetchDocuments();
   };
+  const readPdf = async (e: FormEvent) => {
+      e.preventDefault();
+      const res = await fetch(
+        `/api/physical/read/data/${personId}`,
+      );
+      res.ok
+        ? (alert("Dokumentas nuskaitytas"))
+        : alert("Nepavyko nuskaityti dokumento");
+  };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -863,6 +872,11 @@ function Documents({ personId }: { personId: number }) {
           <input type="file" hidden onChange={handleFileChange} />
         </label>
       </button>
+       <form onSubmit={readPdf} style={{ marginTop: "1rem" }}>
+        <button type="submit" className={styles.secondaryButton}>
+          Nuskaityti duomenis iš dokumento
+        </button>
+      </form>
     </>
   );
 }

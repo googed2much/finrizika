@@ -241,3 +241,15 @@
   .formGrid { grid-template-columns: 1fr; }
   .buttonDiv { flex-direction: column; }
 }
+.secondaryButton {
+  background: #edf1f5;
+  color: #595a5e;
+  border: 2px solid #c3c6ca;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.secondaryButton:hover { background: #e2e8f0; color: #111; }
