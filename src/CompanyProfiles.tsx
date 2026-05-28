@@ -391,7 +391,7 @@ function InputRatingInformation({ id }: { id: number }) {
   useEffect(() => {
     fetchData();
   }, [id]);
-  function fetchData(){
+  function fetchData() {
     setCompanyData((prev) => ({ ...prev, companyId: id }));
     fetch(`/api/juridical/get/data/${id}`)
       .then((res) => (res.ok ? res.json() : Promise.reject()))
@@ -410,14 +410,21 @@ function InputRatingInformation({ id }: { id: number }) {
       : alert("Nepavyko išsaugoti");
   };
 
+  const [isValid, setIsValid] = useState<boolean>(true);
+
   const readPdf = async (e: FormEvent) => {
     e.preventDefault();
     const res = await fetch(
       `/api/juridical/read/data/${companyData.companyId}`,
     );
-    res.ok
-      ? (alert("Dokumentas nuskaitytas"), fetchData())
-      : alert("Nepavyko nuskaityti dokumento");
+
+    if (res.ok) {
+      const { validity }: { validity: boolean } = await res.json();
+      setIsValid(validity);
+      alert("Dokumentas nuskaitytas");
+    } else {
+      alert("Nepavyko nuskaityti dokumento");
+    }
   };
 
   const fields = [
@@ -433,7 +440,11 @@ function InputRatingInformation({ id }: { id: number }) {
     { id: "amortization", label: "Amortizacija" },
     { id: "financialLiabilities", label: "Finansiniai įsipareigojimai" },
     { id: "cash", label: "Grynieji pinigai" },
-    { id: "salesRevenueCurrent", label: "Pardavimų pajamos (naujausi metai)" },
+    {
+      id: "salesRevenueCurrent",
+      label: "Pardavimų pajamos (naujausi metai)",
+      validate: true,
+    },
     { id: "salesRevenue1YearOld", label: "Pardavimų pajamos (praeiti metai)" },
   ];
 
@@ -447,7 +458,9 @@ function InputRatingInformation({ id }: { id: number }) {
               {f.label}
             </label>
             <input
-              className={styles.inputField}
+              className={`${styles.inputField} ${
+                f.validate && !isValid ? styles.inputError : ""
+              }`}
               id={f.id}
               type="number"
               value={companyData[f.id as keyof RatingData] || ""}

@@ -220,6 +220,11 @@
 }
 .downloadLink:hover { background: #e2e8f0; }
 
+.inputError {
+  border-color: rgb(231, 64, 64);
+  background-color: #fce8e8;
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   .profileGrid { grid-template-columns: 1fr; }
